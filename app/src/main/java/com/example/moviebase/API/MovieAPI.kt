@@ -20,10 +20,13 @@ interface MovieAPI {
     timeWindow => day/week
     */
     @GET("trending/{mediaType}/{timeWindow}${API}")
-    suspend fun getTrending(@Path("mediaType") mediaType : String, @Path("timeWindow") timeWindow : String) : Response<TrendingModel>
+    suspend fun getTrending(
+        @Path("mediaType") mediaType: String,
+        @Path("timeWindow") timeWindow: String
+    ): Response<TrendingModel>
 
-    companion object{
-        operator fun invoke() : MovieAPI{
+    companion object {
+        operator fun invoke(): MovieAPI {
             return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://api.themoviedb.org/3/")

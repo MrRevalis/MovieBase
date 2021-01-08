@@ -15,14 +15,16 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment : Fragment() {
 
-    private lateinit var mMovieViewModel : MovieViewModel
+    private lateinit var mMovieViewModel: MovieViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         mMovieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
@@ -30,9 +32,10 @@ class MainFragment : Fragment() {
         val adapter = TrendingAdapter()
         val recyclerView = view.recyclerViewTrending
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        mMovieViewModel.getTrending("movie","day").observe(viewLifecycleOwner, Observer { items->
+        mMovieViewModel.getTrending("movie", "day").observe(viewLifecycleOwner, Observer { items ->
             adapter.setData(items.results)
         })
 
