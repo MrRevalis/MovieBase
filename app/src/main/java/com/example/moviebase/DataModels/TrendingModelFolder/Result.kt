@@ -1,4 +1,4 @@
-package com.example.moviebase.DataModels
+package com.example.moviebase.DataModels.TrendingModelFolder
 
 data class Result(
     val adult: Boolean,

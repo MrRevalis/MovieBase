@@ -1,6 +1,4 @@
-package com.example.moviebase.DataModels
-
-import com.example.moviebase.DataModels.Result
+package com.example.moviebase.DataModels.TrendingModelFolder
 
 data class TrendingModel(
     val page: Int,

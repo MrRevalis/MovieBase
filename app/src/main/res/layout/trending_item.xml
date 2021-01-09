@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/trendingMovie"
     android:orientation="vertical"
-    android:layout_width="150dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10px">
 
@@ -23,7 +23,7 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/ratingCircle"
+            android:id="@+id/movieRatingCircle"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:indeterminateOnly="false"
@@ -34,7 +34,7 @@
             tools:progress="30" />
 
         <TextView
-            android:id="@+id/ratingValue"
+            android:id="@+id/movieRatingValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30%"
@@ -42,23 +42,20 @@
             android:textColor="@color/white"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ratingCircle"
-            app:layout_constraintStart_toStartOf="@+id/ratingCircle"
-            app:layout_constraintTop_toTopOf="@+id/ratingCircle"></TextView>
+            app:layout_constraintEnd_toEndOf="@+id/movieRatingCircle"
+            app:layout_constraintStart_toStartOf="@+id/movieRatingCircle"
+            app:layout_constraintTop_toTopOf="@+id/movieRatingCircle"></TextView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/trendingTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:scrollHorizontally="false"
-        android:text="TITLE"
+        android:layout_marginTop="-10dp"
         android:textStyle="bold"
         android:textSize="14sp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingCircle" />
+        android:lines="3"
+        android:text="Title" />
+
 </LinearLayout>

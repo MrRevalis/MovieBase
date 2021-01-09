@@ -9,5 +9,21 @@
         android:id="@+id/mainFragment"
         android:name="com.example.moviebase.Fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_movieView"
+            app:destination="@id/movieView" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieView"
+        android:name="com.example.moviebase.Fragments.MovieView"
+        android:label="fragment_movie_view"
+        tools:layout="@layout/fragment_movie_view" >
+        <action
+            android:id="@+id/action_movieView_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="movieID"
+            app:argType="integer" />
+    </fragment>
 </navigation>
