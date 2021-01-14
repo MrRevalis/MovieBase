@@ -60,6 +60,11 @@ class SearchResultsFragment : Fragment() {
             adapter = searchResultsAdapter
             layoutManager = fragmentLayoutManager
         }
+        searchBtn.setOnClickListener {
+            searchViewModel.searchQuery = searchQueryInput.text.toString()
+            searchResultsAdapter.clearList()
+            searchViewModel.search()
+        }
         searchViewModel.search()
         if(!searchViewModel.searchQuery.isNullOrEmpty())
             searchQueryInput.text = Editable.Factory.getInstance().newEditable(searchViewModel.searchQuery)

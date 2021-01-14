@@ -1,5 +1,7 @@
 package com.example.moviebase.DataModels.SearchModelFolder
 
+import com.example.moviebase.R
+
 class SearchResultListModel(item: Any) {
     val type: ResultType
     val poster: String

@@ -9,6 +9,8 @@ import com.example.moviebase.DataModels.SearchModelFolder.SearchResultListModel
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.SearchViewModel
 import kotlinx.android.synthetic.main.search_result_row.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView.Adapter<SearchResultsAdapter.Holder>() {
     inner class Holder(view: View): RecyclerView.ViewHolder(view)
@@ -22,13 +24,18 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        if(!viewModel.hidden.contains(list[position].type)){
-            bindImage(holder.itemView.itemImage, imageSource + list[position].poster)
-            holder.itemView.itemName.text = list[position].name
-            holder.itemView.itemOverview.text = list[position].description
-        } else {
-            holder.itemView.resultRow.visibility = View.GONE
-        }
+        bindImage(holder.itemView.itemImage, imageSource + list[position].poster)
+        holder.itemView.itemName.text = list[position].name
+        holder.itemView.itemOverview.text = list[position].description
+        val dateVals = list[position].date.split('-')
+        if(dateVals.size == 3){
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.YEAR, dateVals[0].toInt())
+            calendar.set(Calendar.MONTH, dateVals[1].toInt())
+            calendar.set(Calendar.DAY_OF_MONTH, dateVals[2].toInt())
+            holder.itemView.itemDate.text = SimpleDateFormat("dd MMMM YYYY", Locale.getDefault()).format(calendar.time)
+        } else
+            holder.itemView.itemDate.visibility = View.GONE
     }
 
     override fun getItemCount() = list.size

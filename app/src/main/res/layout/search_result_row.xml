@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="110dp"
     android:id="@+id/resultRow"
     android:orientation="horizontal">
 
@@ -23,13 +23,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:text="Jan Kowalski" />
+        <TextView
+            android:id="@+id/itemDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="@color/disabled"
+            android:text="13 lutego 2019" />
         <TextView
             android:id="@+id/itemOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="15dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="Jan Kowalski" />
     </LinearLayout>
 

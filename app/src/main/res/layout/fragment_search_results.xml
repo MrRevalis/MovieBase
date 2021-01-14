@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/searchBtn"
+            android:hint="@string/search"
             android:inputType="text" />
 
         <Button

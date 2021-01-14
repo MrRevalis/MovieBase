@@ -4,6 +4,8 @@
     <string name="movies">Filmy</string>
     <string name="people">Osoby</string>
     <string name="tvshows">Seriale</string>
+    <string name="actor">Aktor</string>
+    <string name="producer">Producent</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
