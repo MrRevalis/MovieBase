@@ -1,6 +1,7 @@
 package com.example.moviebase.DataModels.TrendingModelFolder
 
 data class Result(
+    val type: String,
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,

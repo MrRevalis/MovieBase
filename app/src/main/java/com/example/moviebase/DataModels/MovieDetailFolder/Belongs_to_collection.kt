@@ -1,8 +1,8 @@
 package com.example.moviebase.DataModels.MovieDetailFolder
 
-data class Production_companies(
+data class Belongs_to_collection(
     val id: Int,
-    val logo_path: String,
     val name: String,
-    val origin_country: String
+    val poster_path: String,
+    val backdrop_path: String
 )

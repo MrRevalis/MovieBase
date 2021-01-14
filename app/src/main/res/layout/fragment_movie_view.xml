@@ -70,8 +70,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/movieRating"
-        app:layout_constraintWidth_default="wrap" />
+        app:layout_constraintTop_toTopOf="@+id/movieRating"/>
 
     <ProgressBar
         android:id="@+id/movieRating"

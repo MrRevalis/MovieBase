@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviebase.DataModels.HelperClass
 import com.example.moviebase.DataModels.TrendingModelFolder.Result
 import com.example.moviebase.Fragments.MainFragmentDirections
 import com.example.moviebase.R
+import kotlinx.android.synthetic.main.fragment_movie_view.view.*
 import kotlinx.android.synthetic.main.trending_item.view.*
+import kotlinx.android.synthetic.main.trending_item.view.movieRating
+import kotlinx.android.synthetic.main.trending_item.view.movieRatingText
 
 
 class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
@@ -41,13 +45,14 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
         holder.itemView.trendingTitle.text = currentItem.title
 
         var rating: Int = (currentItem.vote_average * 10).toInt()
-        holder.itemView.movieRatingText.text = "${rating}% "
+        holder.itemView.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
         holder.itemView.movieRating.progress = rating
+        holder.itemView.trendingRelease.text = currentItem.release_date
 
         holder.itemView.trendingMovie.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToMovieView()
             Log.d("komunikat", currentItem.id.toString())
-            action.movieID = currentItem.id
+            var title = if(currentItem.title.isNullOrEmpty()) "" else currentItem.title
+            val action = MainFragmentDirections.actionMainFragmentToMovieView(HelperClass(currentItem.id, currentItem.media_type), title)
             holder.itemView.findNavController().navigate(action)
         }
     }

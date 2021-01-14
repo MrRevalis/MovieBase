@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trendingMovie"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
-    android:layout_margin="10px">
+    android:layout_margin="4dp">
+
 
     <ImageView
         android:id="@+id/trendingImage"
@@ -14,48 +14,57 @@
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/movieRating"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="170dp"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/circle_progress"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        tools:progress="0" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="-20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/movieRatingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/movieRating"
+        app:layout_constraintEnd_toEndOf="@+id/movieRating"
+        app:layout_constraintStart_toStartOf="@+id/movieRating"
+        app:layout_constraintTop_toTopOf="@+id/movieRating"></TextView>
 
-        <ProgressBar
-            android:id="@+id/movieRating"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:indeterminateOnly="false"
-            android:progressDrawable="@drawable/circle_progress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:progress="30" />
-
-        <TextView
-            android:id="@+id/movieRatingText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30%"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/movieRating"
-            app:layout_constraintStart_toStartOf="@+id/movieRating"
-            app:layout_constraintTop_toTopOf="@+id/movieRating"></TextView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!--Sa ustawione linie, bo nie mam pojecia (w sensie mam, ale za duzo roboty xD)
+    zeby ustawic wysokosc, a wysokosc po przejechaniu kilku przedmiotow zmienia (zalezy od wielkosci tytulu) -->
     <TextView
         android:id="@+id/trendingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
-        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:text="Tytul"
+        android:lines="2"
         android:textSize="14sp"
-        android:lines="3"
-        android:text="Title" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/trendingRelease"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieRating" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/trendingRelease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

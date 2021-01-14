@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.moviebase.Fragments.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="MovieBase"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_movieView"
             app:destination="@id/movieView" />
@@ -20,15 +20,17 @@
     <fragment
         android:id="@+id/movieView"
         android:name="com.example.moviebase.Fragments.MovieView"
-        android:label="fragment_movie_view"
-        tools:layout="@layout/fragment_movie_view" >
+        android:label="{title}"
+        tools:layout="@layout/fragment_movie_view">
         <action
             android:id="@+id/action_movieView_to_mainFragment"
             app:destination="@id/mainFragment" />
         <argument
-            android:name="movieID"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="movieInfo"
+            app:argType="com.example.moviebase.DataModels.HelperClass" />
+        <argument
+            android:name="title"
+            app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/searchResultsFragment"

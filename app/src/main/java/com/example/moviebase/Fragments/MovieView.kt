@@ -16,6 +16,7 @@ import com.bumptech.glide.request.target.CustomViewTarget
 import com.example.moviebase.Adapter.bindImage
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.MovieViewModel
+import com.example.moviebase.ViewModel.TV_ViewModel
 import kotlinx.android.synthetic.main.fragment_movie_view.view.*
 
 
@@ -23,7 +24,9 @@ class MovieView : Fragment() {
 
     private val args by navArgs<MovieViewArgs>()
     private lateinit var mMovieViewModel: MovieViewModel
+    private lateinit var mTV_ViewModel: TV_ViewModel
     private val imageSource: String = "https://image.tmdb.org/t/p/w500"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -35,34 +38,75 @@ class MovieView : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie_view, container, false)
 
         mMovieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-        mMovieViewModel.getMovieDetails(args.movieID).observe(viewLifecycleOwner, Observer { item ->
-            bindImage(view.backgroundImage, imageSource + item.backdrop_path)
-            bindImage(view.posterImage, imageSource + item.poster_path)
-            view.movieTitle.text = item.title
-            view.yearRelease.text = "(${item.release_date.split("-")[0]})"
+        mTV_ViewModel = ViewModelProvider(this).get(TV_ViewModel::class.java)
 
-            var rating: Int = (item.vote_average * 10).toInt()
-            view.movieRating.progress = rating
-            view.movieRatingText.text = "${rating}%"
+        if (args.movieInfo.type == "movie") {
+            mMovieViewModel.getMovieDetails(args.movieInfo.ID)
+                .observe(viewLifecycleOwner, Observer { item ->
+                    bindImage(view.backgroundImage, imageSource + item.backdrop_path)
+                    bindImage(view.posterImage, imageSource + item.poster_path)
+                    view.movieTitle.text = item.title
+                    view.yearRelease.text = "(${item.release_date.split("-")[0]})"
 
-            view.dateRelease.text = item.release_date
+                    var rating: Int = (item.vote_average * 10).toInt()
 
-            var time = item.runtime
-            var minutes = time % 60
-            var hours = (time - (time % 60)) / 60
-            view.movieTime.text = "${hours}h ${minutes}m"
+                    view.movieRating.progress = rating
+                    view.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
 
-            var movieType = ""
-            for (x in item.genres) {
-                movieType += "${x.name} "
-            }
-            view.movieType.text = movieType
+                    view.dateRelease.text = item.release_date
 
-            view.movieDescription.text = if(item.overview.isEmpty()) "Pusto" else item.overview
-            //Log.d("komunikat", item.overview.length.toString())
+                    var time = item.runtime
+                    var minutes = time % 60
+                    var hours = (time - (time % 60)) / 60
+                    view.movieTime.text = "${hours}h ${minutes}m"
 
-            view.movieTagline.text = item.tagline
-        })
+                    var movieType = ""
+                    for (x in item.genres) {
+                        movieType += "${x.name} "
+                    }
+                    view.movieType.text = movieType
+
+                    view.movieDescription.text =
+                        if (item.overview.isEmpty()) "Pusto" else item.overview
+
+                    view.movieTagline.text = item.tagline
+                })
+        } else if (args.movieInfo.type == "tv") {
+            mTV_ViewModel.getTVDetails(args.movieInfo.ID)
+                .observe(viewLifecycleOwner, Observer { item ->
+                    bindImage(view.backgroundImage, imageSource + item.backdrop_path)
+                    bindImage(view.posterImage, imageSource + item.poster_path)
+                    view.movieTitle.text = item.name
+                    view.yearRelease.text = "(${item.first_air_date.split("-")[0]})"
+
+                    var rating: Int = (item.vote_average * 10).toInt()
+
+                    view.movieRating.progress = rating
+                    view.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
+
+                    view.dateRelease.text = item.first_air_date
+
+                    var time = item.episode_run_time
+                    if (time.size == 3)
+                        view.movieTime.text = "${time[0]}h ${time[1]}m ${time[2]}s"
+                    else if (time.size == 2)
+                        view.movieTime.text = "${time[0]}m ${time[1]}s"
+                    else if (time.size == 1)
+                        view.movieTime.text = "${time[0]}m"
+
+                    var movieType = ""
+                    for (x in item.genres) {
+                        movieType += "${x.name} "
+                    }
+                    view.movieType.text = movieType
+
+                    view.movieDescription.text =
+                        if (item.overview.isEmpty()) "Pusto" else item.overview
+
+                    view.movieTagline.text = item.tagline
+                })
+        }
+
 
         return view
     }

@@ -1,6 +1,7 @@
 package com.example.moviebase.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,7 @@ class MainFragment : Fragment() {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        mMovieViewModel.getTrending("movie", "day").observe(viewLifecycleOwner, Observer { items ->
+        mMovieViewModel.getTrending("all", "day").observe(viewLifecycleOwner, Observer { items ->
             adapter.setData(items.results)
         })
 

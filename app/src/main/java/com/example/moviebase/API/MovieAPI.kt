@@ -4,6 +4,7 @@ import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
 import com.example.moviebase.DataModels.SearchModelFolder.SearchMovie
 import com.example.moviebase.DataModels.SearchModelFolder.SearchPeople
 import com.example.moviebase.DataModels.SearchModelFolder.SearchTv
+import com.example.moviebase.DataModels.TVDetailFolder.TV
 import com.example.moviebase.DataModels.TrendingModelFolder.TrendingModel
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -41,6 +42,12 @@ interface MovieAPI {
     suspend fun getMovieDetails(
         @Path("movieID") movieID: Int
     ): Response<MovieDetail>
+
+    //Informacja o serii TV
+    @GET("tv/{id}${API}&language=${LANGUAGE}")
+    suspend fun getTVDetails(
+        @Path("id") id:Int
+    ) : Response<TV>
 
     /*Wyszukiwanie filmów
     query => fraza do wyszukania
