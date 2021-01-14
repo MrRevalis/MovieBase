@@ -1,7 +1,7 @@
 package com.example.moviebase.DataModels.SearchModelFolder
 
 data class PeopleSearchResult (
-    val profile_patch: String,
+    val profile_path: String,
     val adult: Boolean,
     val id: Int,
     val name: String,
