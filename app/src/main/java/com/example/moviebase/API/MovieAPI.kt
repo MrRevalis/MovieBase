@@ -1,12 +1,16 @@
 package com.example.moviebase.API
 
 import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
+import com.example.moviebase.DataModels.SearchModelFolder.SearchMovie
+import com.example.moviebase.DataModels.SearchModelFolder.SearchPeople
+import com.example.moviebase.DataModels.SearchModelFolder.SearchTv
 import com.example.moviebase.DataModels.TrendingModelFolder.TrendingModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 const val API: String = "?api_key=fbfd2d53b7504d595ee9c450e52d4026"
 const val LANGUAGE: String = "pl-PL"
@@ -37,6 +41,28 @@ interface MovieAPI {
     suspend fun getMovieDetails(
         @Path("movieID") movieID: Int
     ): Response<MovieDetail>
+
+    /*Wyszukiwanie filmów
+    query => fraza do wyszukania
+    */
+    @GET("search/movie${API}&language=${LANGUAGE}")
+    suspend fun searchMovies(
+        @Query("query") query: String
+    ): Response<SearchMovie>
+    /*Wyszukiwanie osób
+    query => fraza do wyszukania
+    */
+    @GET("search/person${API}&language=${LANGUAGE}")
+    suspend fun searchPeople(
+        @Query("query") query: String
+    ): Response<SearchPeople>
+    /*Wyszukiwanie seriali
+    query => fraza do wyszukania
+    */
+    @GET("search/tv${API}&language=${LANGUAGE}")
+    suspend fun searchTv(
+        @Query("query") query: String
+    ): Response<SearchTv>
 
     companion object {
         operator fun invoke(): MovieAPI {
