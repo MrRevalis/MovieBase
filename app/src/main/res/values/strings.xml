@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MovieBase</string>
     <string name="search">Szukaj</string>
+    <string name="movies">Filmy</string>
+    <string name="people">Osoby</string>
+    <string name="tvshows">Seriale</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

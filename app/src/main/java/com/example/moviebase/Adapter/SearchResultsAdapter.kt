@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.DataModels.SearchModelFolder.SearchResultListModel
 import com.example.moviebase.R
+import com.example.moviebase.ViewModel.SearchViewModel
 import kotlinx.android.synthetic.main.search_result_row.view.*
 
-class SearchResultsAdapter(): RecyclerView.Adapter<SearchResultsAdapter.Holder>() {
+class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView.Adapter<SearchResultsAdapter.Holder>() {
     inner class Holder(view: View): RecyclerView.ViewHolder(view)
 
     private val list = mutableListOf<SearchResultListModel>()
-    private val hidden = mutableListOf<SearchResultListModel.ResultType>()
     private val imageSource: String = "https://image.tmdb.org/t/p/w500"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -22,10 +22,13 @@ class SearchResultsAdapter(): RecyclerView.Adapter<SearchResultsAdapter.Holder>(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        bindImage(holder.itemView.itemImage, imageSource + list[position].poster)
-        Log.d("[ITEM]", "${list[position].name} ${list[position].poster}")
-        holder.itemView.itemName.text = list[position].name
-        holder.itemView.itemOverview.text = list[position].description
+        if(!viewModel.hidden.contains(list[position].type)){
+            bindImage(holder.itemView.itemImage, imageSource + list[position].poster)
+            holder.itemView.itemName.text = list[position].name
+            holder.itemView.itemOverview.text = list[position].description
+        } else {
+            holder.itemView.resultRow.visibility = View.GONE
+        }
     }
 
     override fun getItemCount() = list.size
@@ -44,11 +47,18 @@ class SearchResultsAdapter(): RecyclerView.Adapter<SearchResultsAdapter.Holder>(
         notifyDataSetChanged()
     }
 
-    fun changeGroupVisibility(group: String){
-        when(group){
-            "movie" -> if(!hidden.contains(SearchResultListModel.ResultType.MOVIE)) hidden.add(SearchResultListModel.ResultType.MOVIE)
-            "person" -> if(!hidden.contains(SearchResultListModel.ResultType.PERSON)) hidden.add(SearchResultListModel.ResultType.PERSON)
-            "show" -> if(!hidden.contains(SearchResultListModel.ResultType.SHOW)) hidden.add(SearchResultListModel.ResultType.SHOW)
+    fun changeGroup(group: String){
+        if(viewModel.isHidden(group)){
+            addResults(viewModel.getGroup(group))
+            viewModel.hidden.remove(viewModel.getResultType(group))
+        } else {
+            val type = viewModel.getResultType(group)
+            val remlist = list.filter { it.type == type }
+
+            for(item in remlist)
+                list.removeAll(remlist)
+
+            viewModel.hidden.add(type)
         }
         notifyDataSetChanged()
     }

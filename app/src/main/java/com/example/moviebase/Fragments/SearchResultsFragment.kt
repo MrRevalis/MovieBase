@@ -33,18 +33,21 @@ class SearchResultsFragment : Fragment() {
     ): View? {
         searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         fragmentLayoutManager = LinearLayoutManager(context)
-        searchResultsAdapter = SearchResultsAdapter()
+        searchResultsAdapter = SearchResultsAdapter(searchViewModel)
 
         searchViewModel.searchQuery = args.searchQuery
 
-        searchViewModel.getMovies().observe(viewLifecycleOwner, Observer { movies ->
-            searchResultsAdapter.addResults(movies)
+        searchViewModel.movies.observe(viewLifecycleOwner, Observer {
+            searchResultsAdapter.addResults(it.results)
+            moviesLabel.text = "${getString(R.string.movies)}: ${it.total_results}"
         })
-        searchViewModel.getPeople().observe(viewLifecycleOwner, Observer { people ->
-            searchResultsAdapter.addResults(people)
+        searchViewModel.people.observe(viewLifecycleOwner, Observer {
+            searchResultsAdapter.addResults(it.results)
+            peopleLabel.text = "${getString(R.string.people)}: ${it.total_results}"
         })
-        searchViewModel.getTvShows().observe(viewLifecycleOwner, Observer { shows ->
-            searchResultsAdapter.addResults(shows)
+        searchViewModel.shows.observe(viewLifecycleOwner, Observer {
+            searchResultsAdapter.addResults(it.results)
+            showsLabel.text = "${getString(R.string.tvshows)}: ${it.total_results}"
         })
 
         // Inflate the layout for this fragment
@@ -57,9 +60,25 @@ class SearchResultsFragment : Fragment() {
             adapter = searchResultsAdapter
             layoutManager = fragmentLayoutManager
         }
-
+        searchViewModel.search()
         if(!searchViewModel.searchQuery.isNullOrEmpty())
             searchQueryInput.text = Editable.Factory.getInstance().newEditable(searchViewModel.searchQuery)
+
+        moviesLabel.setOnClickListener {
+            searchResultsAdapter.changeGroup("movie")
+            it.background = if(searchViewModel.isHidden("movie")) resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
+            else resources.getDrawable(R.drawable.badge, context?.theme!!)
+        }
+        peopleLabel.setOnClickListener {
+            searchResultsAdapter.changeGroup("people")
+            it.background = if(searchViewModel.isHidden("people")) resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
+            else resources.getDrawable(R.drawable.badge, context?.theme!!)
+        }
+        showsLabel.setOnClickListener {
+            searchResultsAdapter.changeGroup("show")
+            it.background = if(searchViewModel.isHidden("show")) resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
+            else resources.getDrawable(R.drawable.badge, context?.theme!!)
+        }
     }
 
     companion object {

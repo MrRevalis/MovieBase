@@ -37,11 +37,40 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
+        <TextView
+            android:id="@+id/moviesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/badge"
+            android:text="Filmy: 0"
+            android:textSize="16dp"
+            android:layout_marginRight="8dp"
+            android:textColor="#FFFFFF" />
+        <TextView
+            android:id="@+id/showsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/badge"
+            android:text="Seriale: 0"
+            android:textSize="16dp"
+            android:layout_marginRight="8dp"
+            android:textColor="#FFFFFF" />
+        <TextView
+            android:id="@+id/peopleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/badge"
+            android:text="Osoby: 0"
+            android:textSize="16dp"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
