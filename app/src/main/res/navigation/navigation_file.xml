@@ -24,6 +24,7 @@
             app:destination="@id/mainFragment" />
         <argument
             android:name="movieID"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

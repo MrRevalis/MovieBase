@@ -23,7 +23,7 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/movieRatingCircle"
+            android:id="@+id/movieRating"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:indeterminateOnly="false"
@@ -34,7 +34,7 @@
             tools:progress="30" />
 
         <TextView
-            android:id="@+id/movieRatingValue"
+            android:id="@+id/movieRatingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30%"
@@ -42,9 +42,9 @@
             android:textColor="@color/white"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/movieRatingCircle"
-            app:layout_constraintStart_toStartOf="@+id/movieRatingCircle"
-            app:layout_constraintTop_toTopOf="@+id/movieRatingCircle"></TextView>
+            app:layout_constraintEnd_toEndOf="@+id/movieRating"
+            app:layout_constraintStart_toStartOf="@+id/movieRating"
+            app:layout_constraintTop_toTopOf="@+id/movieRating"></TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

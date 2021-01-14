@@ -41,15 +41,15 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
         holder.itemView.trendingTitle.text = currentItem.title
 
         var rating: Int = (currentItem.vote_average * 10).toInt()
-        holder.itemView.movieRatingValue.text = "${rating}% "
-        holder.itemView.movieRatingCircle.progress = rating
+        holder.itemView.movieRatingText.text = "${rating}% "
+        holder.itemView.movieRating.progress = rating
 
         holder.itemView.trendingMovie.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToMovieView(currentItem.id)
+            val action = MainFragmentDirections.actionMainFragmentToMovieView()
+            Log.d("komunikat", currentItem.id.toString())
+            action.movieID = currentItem.id
             holder.itemView.findNavController().navigate(action)
         }
-
-        Log.d("komunikat", currentItem.id.toString())
     }
 
     fun setData(data: List<Result>) {
