@@ -97,74 +97,83 @@
         app:layout_constraintStart_toStartOf="@+id/movieRating"
         app:layout_constraintTop_toTopOf="@+id/movieRating"></TextView>
 
-    <TableLayout
-        android:id="@+id/tableLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="#d3d3d3"
-        android:collapseColumns="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieRating">
 
-        <TableRow
+        <TextView
+            android:id="@+id/dateRelease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Data premiery"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/movieTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Czas"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/movieType"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp">
+            android:layout_height="wrap_content"
+            android:text="Rodzaj filmu"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateRelease"></TextView>
 
-            <TextView
-                android:id="@+id/dateRelease"
-                android:layout_weight="1"
-                android:text="Data premiery"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="18sp"></TextView>
-
-            <TextView
-                android:id="@+id/movieTime"
-                android:layout_weight="0.5"
-                android:text="Czas"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="18sp"></TextView>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp">
-
-            <TextView
-                android:id="@+id/movieType"
-                android:layout_weight="1"
-                android:text="Rodzaj filmu"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="18sp"></TextView>
-        </TableRow>
-
-    </TableLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8053528" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/movieTagline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:text="Krotka fraza"
         android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:text="Opis"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -177,6 +186,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:text="Opis filmu"
         android:textSize="18sp"

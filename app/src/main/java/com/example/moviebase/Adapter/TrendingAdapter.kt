@@ -45,7 +45,7 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
         bindImage(holder.itemView.trendingImage, imageSource + currentItem.poster_path)
         holder.itemView.trendingTitle.text = if(currentItem.title.isNullOrEmpty()) currentItem.name else currentItem.title
 
-        
+
         var rating: Int = (currentItem.vote_average * 10).toInt()
         holder.itemView.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
         holder.itemView.movieRating.progress = rating

@@ -18,6 +18,7 @@ import com.example.moviebase.R
 import com.example.moviebase.ViewModel.MovieViewModel
 import com.example.moviebase.ViewModel.TV_ViewModel
 import kotlinx.android.synthetic.main.fragment_movie_view.view.*
+import java.lang.StringBuilder
 
 
 class MovieView : Fragment() {
@@ -93,15 +94,20 @@ class MovieView : Fragment() {
                         view.movieTime.text = "${time[0]}m ${time[1]}s"
                     else if (time.size == 1)
                         view.movieTime.text = "${time[0]}m"
-
-                    var movieType = ""
-                    for (x in item.genres) {
-                        movieType += "${x.name} "
+                    else{
+                        view.movieTime.text = "Pusto"
                     }
-                    view.movieType.text = movieType
+
+
+                    var movieType : StringBuilder = StringBuilder()
+                    for (x in item.genres) {
+                        movieType.append("${x.name} ")
+                    }
+                    Log.d("komunikat", movieType.toString())
+                    view.movieType.text = movieType.toString()
 
                     view.movieDescription.text =
-                        if (item.overview.isEmpty()) "Pusto" else item.overview
+                        if (item.overview.isNullOrEmpty()) "Pusto" else item.overview
 
                     view.movieTagline.text = item.tagline
                 })
