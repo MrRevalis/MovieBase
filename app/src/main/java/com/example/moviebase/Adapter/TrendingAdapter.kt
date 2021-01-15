@@ -23,7 +23,8 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.trending_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.trending_item, parent, false)
 
         view.setOnClickListener {
             //Toast.makeText(parent.context, view.trendingTitle.text, Toast.LENGTH_SHORT).show()
@@ -42,17 +43,23 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
         holder.itemView.trendingImage
 
         bindImage(holder.itemView.trendingImage, imageSource + currentItem.poster_path)
-        holder.itemView.trendingTitle.text = currentItem.title
+        holder.itemView.trendingTitle.text = if(currentItem.title.isNullOrEmpty()) currentItem.name else currentItem.title
 
+        
         var rating: Int = (currentItem.vote_average * 10).toInt()
         holder.itemView.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
         holder.itemView.movieRating.progress = rating
-        holder.itemView.trendingRelease.text = currentItem.release_date
+        holder.itemView.trendingRelease.text = if(currentItem.release_date.isNullOrEmpty()) currentItem.first_air_date else currentItem.release_date
 
         holder.itemView.trendingMovie.setOnClickListener {
             Log.d("komunikat", currentItem.id.toString())
-            var title = if(currentItem.title.isNullOrEmpty()) "" else currentItem.title
-            val action = MainFragmentDirections.actionMainFragmentToMovieView(HelperClass(currentItem.id, currentItem.media_type), title)
+            var title = if (currentItem.title.isNullOrEmpty()) "" else currentItem.title
+            val action = MainFragmentDirections.actionMainFragmentToMovieView(
+                HelperClass(
+                    currentItem.id,
+                    currentItem.media_type
+                ), title
+            )
             holder.itemView.findNavController().navigate(action)
         }
     }
