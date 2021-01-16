@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainFragment"
+        android:title="Strona główna"></item>
+    <item
+        android:id="@+id/favouriteList"
+        android:title="Ulubione"></item>
+</menu>

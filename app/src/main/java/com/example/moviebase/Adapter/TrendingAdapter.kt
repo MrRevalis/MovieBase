@@ -68,5 +68,4 @@ class TrendingAdapter : RecyclerView.Adapter<TrendingAdapter.MyViewHolder>() {
         this.trendingList = data
         notifyDataSetChanged()
     }
-
 }
