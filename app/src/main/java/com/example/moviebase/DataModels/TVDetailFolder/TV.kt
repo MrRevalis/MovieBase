@@ -1,5 +1,7 @@
 package com.example.moviebase.DataModels.TVDetailFolder
 
+import com.example.moviebase.DataModels.MovieDetailFolder.Genres
+
 data class TV (
     val backdrop_path : String,
     val created_by : List<Created_by>,

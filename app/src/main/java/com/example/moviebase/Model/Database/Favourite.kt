@@ -9,7 +9,11 @@ data class Favourite(
     val ID: Int,
     val itemID: Int,
     val type: String,
+    val posterPath: String,
+    val backgroundPath: String,
     val title: String,
-    val imgPath: String,
-    val description: String
+    val tagline: String,
+    val releaseDate: String,
+    val movieType: String,
+    val movieDescription: String
 )

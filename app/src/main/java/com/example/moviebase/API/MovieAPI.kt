@@ -14,7 +14,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val API: String = "?api_key=fbfd2d53b7504d595ee9c450e52d4026"
-const val LANGUAGE: String = "pl-PL"
+//Zostawmy angielski bo wszystko działa, w polskim pokazuje z połowe rzeczy
+const val LANGUAGE: String = "en-US"
 
 interface MovieAPI {
     //API: fbfd2d53b7504d595ee9c450e52d4026

@@ -34,6 +34,9 @@
         <argument
             android:name="title"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_movieView_to_favouriteList"
+            app:destination="@id/favouriteList" />
     </fragment>
     <fragment
         android:id="@+id/searchResultsFragment"
@@ -53,10 +56,13 @@
     <fragment
         android:id="@+id/favouriteList"
         android:name="com.example.moviebase.Fragments.FavouriteList"
-        android:label="fragment_favourite_list"
-        tools:layout="@layout/fragment_favourite_list" >
+        android:label="Lista ulubionych"
+        tools:layout="@layout/fragment_favourite_list">
         <action
             android:id="@+id/action_favouriteList_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_favouriteList_to_movieView"
+            app:destination="@id/movieView" />
     </fragment>
 </navigation>

@@ -3,7 +3,10 @@ package com.example.moviebase.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviebase.DataModels.HelperClass
+import com.example.moviebase.Fragments.FavouriteListDirections
 import com.example.moviebase.Model.Database.Favourite
 import com.example.moviebase.R
 import kotlinx.android.synthetic.main.favourite_row.view.*
@@ -29,9 +32,15 @@ class FavouriteAdapter() : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var currentItem = favouriteList[position]
-        bindImage(holder.itemView.favouritePoster, imageSource + currentItem.imgPath)
+        bindImage(holder.itemView.favouritePoster, imageSource + currentItem.posterPath)
         holder.itemView.favouriteTitle.text = currentItem.title
-        holder.itemView.favouriteDescription.text = currentItem.description
+        holder.itemView.favouriteDescription.text = currentItem.movieDescription
+
+        holder.itemView.setOnClickListener {
+            var helperClass = HelperClass(currentItem.itemID, currentItem.type)
+            val action = FavouriteListDirections.actionFavouriteListToMovieView(helperClass, currentItem.title)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     fun setData(data: List<Favourite>) {

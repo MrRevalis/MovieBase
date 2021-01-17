@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.moviebase.Model.Database.Favourite
 import com.example.moviebase.Model.Database.FavouriteDao
 
-@Database(entities = [Favourite::class], version = 4, exportSchema = false)
+@Database(entities = [Favourite::class], version = 6, exportSchema = false)
 abstract class MainDatabase : RoomDatabase() {
     abstract fun favouriteDao(): FavouriteDao
 
