@@ -55,21 +55,24 @@ interface MovieAPI {
     */
     @GET("search/movie${API}&language=${LANGUAGE}")
     suspend fun searchMovies(
-        @Query("query") query: String
+        @Query("query") query: String,
+        @Query("page") page: Int
     ): Response<SearchMovie>
     /*Wyszukiwanie osób
     query => fraza do wyszukania
     */
     @GET("search/person${API}&language=${LANGUAGE}")
     suspend fun searchPeople(
-        @Query("query") query: String
+        @Query("query") query: String,
+        @Query("page") page: Int
     ): Response<SearchPeople>
     /*Wyszukiwanie seriali
     query => fraza do wyszukania
     */
     @GET("search/tv${API}&language=${LANGUAGE}")
     suspend fun searchTv(
-        @Query("query") query: String
+        @Query("query") query: String,
+        @Query("page") page: Int
     ): Response<SearchTv>
 
     companion object {

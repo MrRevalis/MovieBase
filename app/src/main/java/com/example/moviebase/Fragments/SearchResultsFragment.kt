@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.Adapter.SearchResultsAdapter
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.SearchViewModel
@@ -59,6 +60,18 @@ class SearchResultsFragment : Fragment() {
         searchResultsList.apply {
             adapter = searchResultsAdapter
             layoutManager = fragmentLayoutManager
+            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val totalItemCount = fragmentLayoutManager.itemCount
+                    val visibleItemCount = fragmentLayoutManager.childCount
+                    val lastVisibleItem = fragmentLayoutManager.findLastVisibleItemPosition()
+
+                    if(lastVisibleItem + visibleItemCount > totalItemCount){
+                        searchResultsAdapter.loadMore()
+                    }
+                }
+            })
         }
         searchBtn.setOnClickListener {
             searchViewModel.searchQuery = searchQueryInput.text.toString()

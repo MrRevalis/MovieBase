@@ -69,4 +69,14 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
         }
         notifyDataSetChanged()
     }
+
+    fun loadMore(){
+        val newItems = mutableListOf<SearchResultListModel>()
+        viewModel.loadNextPages().observeForever {
+            for(item in it)
+                newItems.add(SearchResultListModel(item))
+            list.addAll(newItems)
+            notifyDataSetChanged()
+        }
+    }
 }

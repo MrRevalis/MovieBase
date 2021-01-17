@@ -24,14 +24,36 @@ class SearchViewModel(application: Application): AndroidViewModel(application) {
 
     val hidden = mutableListOf<SearchResultListModel.ResultType>()
 
+    private var moviePage = 1
+    private var peoplePage = 1
+    private var showsPage = 1
+    private var searchInProgress = false
+
     fun search(){
         if(!searchQuery.isNullOrEmpty()){
             viewModelScope.launch {
-                movies.postValue(repository.searchMovies(searchQuery))
-                people.postValue(repository.searchPeople(searchQuery))
-                shows.postValue(repository.searchTv(searchQuery))
+                movies.postValue(repository.searchMovies(searchQuery, moviePage))
+                people.postValue(repository.searchPeople(searchQuery, peoplePage))
+                shows.postValue(repository.searchTv(searchQuery, showsPage))
             }
         }
+    }
+
+    fun loadNextPages(): LiveData<List<Any>>{
+        val result = MutableLiveData<List<Any>>()
+        if(!searchInProgress){
+            viewModelScope.launch {
+                if(!hidden.contains(SearchResultListModel.ResultType.MOVIE)){
+                    result.postValue(repository.searchMovies(searchQuery, ++moviePage).results)
+                }
+                if(!hidden.contains(SearchResultListModel.ResultType.PERSON))
+                    result.postValue(repository.searchPeople(searchQuery, ++peoplePage).results)
+                if(!hidden.contains(SearchResultListModel.ResultType.SHOW))
+                    result.postValue(repository.searchTv(searchQuery, ++showsPage).results)
+                searchInProgress = false
+            }
+        }
+        return result
     }
 
     fun isHidden(group: String): Boolean{
