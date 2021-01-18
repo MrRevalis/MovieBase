@@ -36,27 +36,27 @@ class SearchResultsFragment : Fragment() {
         fragmentLayoutManager = LinearLayoutManager(context)
         searchResultsAdapter = SearchResultsAdapter(searchViewModel)
 
-        searchViewModel.searchQuery = args.searchQuery
+        if(searchViewModel.searchQuery.isNullOrEmpty()) searchViewModel.searchQuery = args.searchQuery
 
         searchViewModel.movies.observe(viewLifecycleOwner, Observer {
-            searchResultsAdapter.addResults(it.results)
+            if(!searchViewModel.isHidden("movie")) searchResultsAdapter.addResults(it.results)
             moviesLabel.text = "${getString(R.string.movies)}: ${it.total_results}"
         })
         searchViewModel.people.observe(viewLifecycleOwner, Observer {
-            searchResultsAdapter.addResults(it.results)
+            if(!searchViewModel.isHidden("people")) searchResultsAdapter.addResults(it.results)
             peopleLabel.text = "${getString(R.string.people)}: ${it.total_results}"
         })
         searchViewModel.shows.observe(viewLifecycleOwner, Observer {
-            searchResultsAdapter.addResults(it.results)
+            if(!searchViewModel.isHidden("show")) searchResultsAdapter.addResults(it.results)
             showsLabel.text = "${getString(R.string.tvshows)}: ${it.total_results}"
         })
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search_results, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         searchResultsList.apply {
             adapter = searchResultsAdapter
             layoutManager = fragmentLayoutManager
@@ -73,14 +73,17 @@ class SearchResultsFragment : Fragment() {
                 }
             })
         }
+        if(!searchViewModel.searched)
+            searchViewModel.search()
+        if(!searchViewModel.searchQuery.isNullOrEmpty())
+            searchQueryInput.text = Editable.Factory.getInstance().newEditable(searchViewModel.searchQuery)
+
+        //onclick
         searchBtn.setOnClickListener {
             searchViewModel.searchQuery = searchQueryInput.text.toString()
             searchResultsAdapter.clearList()
             searchViewModel.search()
         }
-        searchViewModel.search()
-        if(!searchViewModel.searchQuery.isNullOrEmpty())
-            searchQueryInput.text = Editable.Factory.getInstance().newEditable(searchViewModel.searchQuery)
 
         moviesLabel.setOnClickListener {
             searchResultsAdapter.changeGroup("movie")
@@ -96,6 +99,19 @@ class SearchResultsFragment : Fragment() {
             searchResultsAdapter.changeGroup("show")
             it.background = if(searchViewModel.isHidden("show")) resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
             else resources.getDrawable(R.drawable.badge, context?.theme!!)
+        }
+        //update badges and results
+        if(searchViewModel.isHidden("movie")){
+            moviesLabel.background = resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
+            searchResultsAdapter.hideElements("movie")
+        }
+        if(searchViewModel.isHidden("people")){
+            peopleLabel.background = resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
+            searchResultsAdapter.hideElements("people")
+        }
+        if(searchViewModel.isHidden("show")){
+            showsLabel.background = resources.getDrawable(R.drawable.badge_disabled, context?.theme!!)
+            searchResultsAdapter.hideElements("show")
         }
     }
 

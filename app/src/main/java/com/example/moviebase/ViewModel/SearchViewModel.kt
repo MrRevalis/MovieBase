@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 class SearchViewModel(application: Application): AndroidViewModel(application) {
     private val repository: MovieRepository = MovieRepository(MovieAPI())
     var searchQuery: String = ""
+    var searched = false
 
     var movies = MutableLiveData<SearchMovie>()
     var people = MutableLiveData<SearchPeople>()
@@ -30,12 +31,17 @@ class SearchViewModel(application: Application): AndroidViewModel(application) {
     private var searchInProgress = false
 
     fun search(){
+        moviePage = 1
+        peoplePage = 1
+        showsPage = 1
+
         if(!searchQuery.isNullOrEmpty()){
             viewModelScope.launch {
                 movies.postValue(repository.searchMovies(searchQuery, moviePage))
                 people.postValue(repository.searchPeople(searchQuery, peoplePage))
                 shows.postValue(repository.searchTv(searchQuery, showsPage))
             }
+            searched = true
         }
     }
 
@@ -44,12 +50,15 @@ class SearchViewModel(application: Application): AndroidViewModel(application) {
         if(!searchInProgress){
             viewModelScope.launch {
                 if(!hidden.contains(SearchResultListModel.ResultType.MOVIE)){
-                    result.postValue(repository.searchMovies(searchQuery, ++moviePage).results)
+                    if(moviePage + 1 <= movies.value?.total_pages!!)
+                        result.postValue(repository.searchMovies(searchQuery, ++moviePage).results)
                 }
                 if(!hidden.contains(SearchResultListModel.ResultType.PERSON))
-                    result.postValue(repository.searchPeople(searchQuery, ++peoplePage).results)
+                    if(peoplePage + 1 <= people.value?.total_pages!!)
+                        result.postValue(repository.searchPeople(searchQuery, ++peoplePage).results)
                 if(!hidden.contains(SearchResultListModel.ResultType.SHOW))
-                    result.postValue(repository.searchTv(searchQuery, ++showsPage).results)
+                    if(showsPage + 1 <= shows.value?.total_pages!!)
+                        result.postValue(repository.searchTv(searchQuery, ++showsPage).results)
                 searchInProgress = false
             }
         }

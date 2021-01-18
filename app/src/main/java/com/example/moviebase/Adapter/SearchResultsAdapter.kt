@@ -58,15 +58,19 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
         if(viewModel.isHidden(group)){
             addResults(viewModel.getGroup(group))
             viewModel.hidden.remove(viewModel.getResultType(group))
+            notifyDataSetChanged()
         } else {
+            hideElements(group)
             val type = viewModel.getResultType(group)
-            val remlist = list.filter { it.type == type }
-
-            for(item in remlist)
-                list.removeAll(remlist)
-
             viewModel.hidden.add(type)
         }
+    }
+
+    fun hideElements(group: String){
+        val type = viewModel.getResultType(group)
+        val remlist = list.filter { it.type == type }
+
+        list.removeAll(remlist)
         notifyDataSetChanged()
     }
 
