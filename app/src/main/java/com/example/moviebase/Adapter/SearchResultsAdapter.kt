@@ -4,8 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviebase.DataModels.HelperClass
 import com.example.moviebase.DataModels.SearchModelFolder.SearchResultListModel
+import com.example.moviebase.Fragments.FavouriteListDirections
+import com.example.moviebase.Fragments.SearchResultsFragmentDirections
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.SearchViewModel
 import kotlinx.android.synthetic.main.search_result_row.view.*
@@ -40,6 +44,22 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
             holder.itemView.itemDate.text = SimpleDateFormat("dd MMMM YYYY", Locale.getDefault()).format(calendar.time)
         } else
             holder.itemView.itemDate.visibility = View.GONE
+        //click
+        holder.itemView.setOnClickListener {
+            when(list[position].type){
+                SearchResultListModel.ResultType.MOVIE -> {
+                    var helperClass = HelperClass(list[position].id, "movie")
+                    val action = SearchResultsFragmentDirections.actionSearchResultsFragmentToMovieView(helperClass, list[position].name)
+                    holder.itemView.findNavController().navigate(action)
+                }
+                SearchResultListModel.ResultType.SHOW -> {
+                    var helperClass = HelperClass(list[position].id, "tv")
+                    val action = SearchResultsFragmentDirections.actionSearchResultsFragmentToMovieView(helperClass, list[position].name)
+                    holder.itemView.findNavController().navigate(action)
+                }
+
+            }
+        }
     }
 
     override fun getItemCount() = list.size

@@ -1,8 +1,7 @@
 package com.example.moviebase.DataModels.SearchModelFolder
 
-import com.example.moviebase.R
-
 class SearchResultListModel(item: Any) {
+    val id: Int
     val type: ResultType
     val poster: String
     val name: String
@@ -12,6 +11,7 @@ class SearchResultListModel(item: Any) {
     init {
         when(item){
             is MovieSearchResult -> {
+                id = item.id
                 type = ResultType.MOVIE
                 poster = item.poster_path
                 name = item.title
@@ -19,6 +19,7 @@ class SearchResultListModel(item: Any) {
                 description = item.overview
             }
             is PeopleSearchResult -> {
+                id = item.id
                 type = ResultType.PERSON
                 poster = item.profile_path
                 name = item.name
@@ -26,6 +27,7 @@ class SearchResultListModel(item: Any) {
                 description = item.known_for_department
             }
             is TvSearchResult -> {
+                id = item.id
                 type = ResultType.SHOW
                 poster = item.poster_path
                 name = item.name
@@ -33,6 +35,7 @@ class SearchResultListModel(item: Any) {
                 description = item.overview
             }
             else -> {
+                id = -1
                 type = ResultType.NODEFINED
                 poster = ""
                 name = ""
