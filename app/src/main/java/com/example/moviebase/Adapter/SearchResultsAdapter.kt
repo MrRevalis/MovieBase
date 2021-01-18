@@ -24,7 +24,11 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        bindImage(holder.itemView.itemImage, imageSource + list[position].poster)
+        if(list[position].poster.isNullOrEmpty()) when(list[position].type){
+            SearchResultListModel.ResultType.PERSON -> holder.itemView.itemImage.setImageResource(R.drawable.ic_baseline_person_24)
+            else -> holder.itemView.itemImage.setImageResource(R.drawable.ic_baseline_movie_24)
+        }
+        else bindImage(holder.itemView.itemImage, imageSource + list[position].poster)
         holder.itemView.itemName.text = list[position].name
         holder.itemView.itemOverview.text = list[position].description
         val dateVals = list[position].date.split('-')
