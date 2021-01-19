@@ -7,13 +7,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.DataModels.HelperClass
 import com.example.moviebase.Fragments.FavouriteListDirections
-import com.example.moviebase.Model.Database.Favourite
+import com.example.moviebase.Model.Database.Show
 import com.example.moviebase.R
 import kotlinx.android.synthetic.main.favourite_row.view.*
 
 class FavouriteAdapter() : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
-    private var favouriteList = emptyList<Favourite>()
+    private var favouriteList = emptyList<Show>()
     private val imageSource: String = "https://image.tmdb.org/t/p/w500"
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -43,7 +43,7 @@ class FavouriteAdapter() : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>()
         }
     }
 
-    fun setData(data: List<Favourite>) {
+    fun setData(data: List<Show>) {
         this.favouriteList = data
         notifyDataSetChanged()
     }

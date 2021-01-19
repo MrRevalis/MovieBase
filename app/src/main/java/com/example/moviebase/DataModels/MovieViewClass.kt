@@ -3,7 +3,7 @@ package com.example.moviebase.DataModels
 import com.example.moviebase.DataModels.MovieDetailFolder.Genres
 import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
 import com.example.moviebase.DataModels.TVDetailFolder.TV
-import com.example.moviebase.Model.Database.Favourite
+import com.example.moviebase.Model.Database.Show
 
 public class MovieViewClass {
     val ID: Int
@@ -48,7 +48,7 @@ public class MovieViewClass {
         return types.toString()
     }
 
-    fun createFavourite() : Favourite{
-        return Favourite(0, this.ID, this.type, this.posterPath, this.backgroundPath, this.title, this.tagline, this.releaseDate, this.movieType, this.movieDescription)
+    fun createFavourite(isFavourite: Boolean, isToWatch: Boolean) : Show{
+        return Show(0, this.ID, this.type, this.posterPath, this.backgroundPath, this.title, this.tagline, this.releaseDate, this.movieType, this.movieDescription, isFavourite, isToWatch)
     }
 }

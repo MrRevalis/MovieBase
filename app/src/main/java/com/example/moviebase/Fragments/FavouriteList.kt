@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviebase.Adapter.FavouriteAdapter
 import com.example.moviebase.R
-import com.example.moviebase.ViewModel.FavouriteViewModel
+import com.example.moviebase.ViewModel.ShowViewModel
 import kotlinx.android.synthetic.main.fragment_favourite_list.view.*
 
 class FavouriteList : Fragment() {
-    private lateinit var mFavouriteViewModel: FavouriteViewModel
+    private lateinit var mShowViewModel: ShowViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -25,14 +25,14 @@ class FavouriteList : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_favourite_list, container, false)
 
-        mFavouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
+        mShowViewModel = ViewModelProvider(this).get(ShowViewModel::class.java)
 
         val adapter = FavouriteAdapter()
         val recyclerView = view.favouriteRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        mFavouriteViewModel.getEverything.observe(viewLifecycleOwner, Observer { items->
+        mShowViewModel.getEverything.observe(viewLifecycleOwner, Observer { items->
             adapter.setData(items)
         })
 

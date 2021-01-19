@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.moviebase.Model.Database.Favourite
-import com.example.moviebase.Model.Database.FavouriteDao
+import com.example.moviebase.Model.Database.Show
+import com.example.moviebase.Model.Database.ShowDao
 
-@Database(entities = [Favourite::class], version = 6, exportSchema = false)
+@Database(entities = [Show::class], version = 8, exportSchema = false)
 abstract class MainDatabase : RoomDatabase() {
-    abstract fun favouriteDao(): FavouriteDao
+    abstract fun showDao(): ShowDao
 
     companion object {
         @Volatile
