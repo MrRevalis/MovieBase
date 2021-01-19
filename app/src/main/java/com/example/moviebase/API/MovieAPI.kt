@@ -50,6 +50,20 @@ interface MovieAPI {
         @Path("id") id:Int
     ) : Response<TV>
 
+    //Aktorzy grający w danym filmie
+    //https://developers.themoviedb.org/3/movies/get-movie-credits
+    @GET("movie/{movieID}/credits${API}")
+    suspend fun getMovieCrew(
+        @Path("movieID") movieID: Int
+    ): Response<Int>
+
+    //Aktorzy grający w danym serialu
+    //https://developers.themoviedb.org/3/movies/get-movie-credits
+    @GET("tv/{tvID}/credits${API}")
+    suspend fun getTVCrew(
+        @Path("tvID") tvID: Int
+    ): Response<Int>
+
     /*Wyszukiwanie filmów
     query => fraza do wyszukania
     */

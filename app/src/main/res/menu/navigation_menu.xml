@@ -2,8 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/mainFragment"
+        android:icon="@drawable/ic_home"
         android:title="Strona główna"></item>
     <item
         android:id="@+id/favouriteList"
-        android:title="Ulubione"></item>
+        android:icon="@drawable/ic_list"
+        android:title="Moja lista"></item>
 </menu>
