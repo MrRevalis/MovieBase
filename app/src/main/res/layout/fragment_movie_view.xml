@@ -107,7 +107,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lightGray"
+            android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movieRating">
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.8053528" />
+                app:layout_constraintGuide_percent="0.7" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -203,18 +203,44 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonFavourite"
+            android:id="@+id/containerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="center"
-            app:maxImageSize="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:backgroundTint="@color/lightGray"
-            android:src="@drawable/ic_favourite"
-            app:tint="@null"
+            android:layout_margin="8dp"
             app:borderWidth="0dp"
+            android:backgroundTint="@color/black"
+            app:tint="@color/white"
+            android:src="@drawable/ic_baseline_add"
+            app:maxImageSize="36dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/favouriteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:borderWidth="0dp"
+            android:visibility="invisible"
+            android:backgroundTint="@color/black"
+            app:tint="@null"
+            android:src="@drawable/ic_star"
+            app:maxImageSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/containerButton"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toWatchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:borderWidth="0dp"
+            android:visibility="invisible"
+            android:backgroundTint="@color/black"
+            app:tint="@null"
+            android:src="@drawable/ic_bookmark"
+            app:maxImageSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favouriteButton"></com.google.android.material.floatingactionbutton.FloatingActionButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

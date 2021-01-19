@@ -1,11 +1,14 @@
 package com.example.moviebase.Fragments
 
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -37,7 +40,10 @@ class MovieView : Fragment() {
     private lateinit var mTV_ViewModel: TV_ViewModel
     private lateinit var mFavouriteViewModel: FavouriteViewModel
     private lateinit var movieClass: MovieViewClass
+    var buttonContainerClicked : Boolean  = false;
 
+    private lateinit var showButtonAnimation : Animation
+    private lateinit var hideButtonAnimation : Animation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -50,6 +56,9 @@ class MovieView : Fragment() {
         mMovieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         mTV_ViewModel = ViewModelProvider(this).get(TV_ViewModel::class.java)
         mFavouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
+
+        showButtonAnimation = AnimationUtils.loadAnimation(context, R.anim.show_animation)
+        hideButtonAnimation = AnimationUtils.loadAnimation(context, R.anim.hide_animation)
 
         checkIfIsFavourite(args.movieInfo.ID)
         var movieType = args.movieInfo.type
@@ -78,14 +87,14 @@ class MovieView : Fragment() {
             }
         }
 
-        view.buttonFavourite.setOnClickListener {
+        view.favouriteButton.setOnClickListener {
             if (::movieClass.isInitialized) {
                 mFavouriteViewModel.checkExist(movieClass.ID)
                     .observe(viewLifecycleOwner, Observer { item ->
                         if (item > 0) {
                             //USUWAMY
                             mFavouriteViewModel.deleteFavourite(movieClass.ID)
-                            buttonFavourite.setImageResource(R.drawable.ic_favourite)
+                            favouriteButton.setImageResource(R.drawable.ic_star)
                             Toast.makeText(
                                 requireContext(),
                                 "${movieClass.title} został usunięty z listy ulubionych",
@@ -94,7 +103,7 @@ class MovieView : Fragment() {
                         } else {
                             //DODAJEMY
                             mFavouriteViewModel.addFavourite(movieClass.createFavourite())
-                            buttonFavourite.setImageResource(R.drawable.ic_is_favourite)
+                            favouriteButton.setImageResource(R.drawable.ic_star_true)
                             Toast.makeText(
                                 requireContext(),
                                 "${movieClass.title} został dodany do listy ulubionych",
@@ -105,6 +114,10 @@ class MovieView : Fragment() {
             }
         }
 
+        view.containerButton.setOnClickListener {
+            buttonContainerClicked = !buttonContainerClicked;
+            ChangeButtonsStyle(buttonContainerClicked)
+        }
         return view
     }
 
@@ -159,11 +172,36 @@ class MovieView : Fragment() {
             mFavouriteViewModel.checkExist(ID)
                 .observe(viewLifecycleOwner, Observer { item ->
                     if (item > 0) {
-                        buttonFavourite.setImageResource(R.drawable.ic_is_favourite)
+                        favouriteButton.setImageResource(R.drawable.ic_star_true)
                     } else {
-                        buttonFavourite.setImageResource(R.drawable.ic_favourite)
+                        favouriteButton.setImageResource(R.drawable.ic_star)
                     }
                 })
+        }
+    }
+
+    private fun ChangeButtonsStyle(clicked: Boolean){
+        if(clicked){
+            //Pokaz
+            favouriteButton.visibility = View.VISIBLE
+            toWatchButton.visibility = View.VISIBLE
+
+            favouriteButton.startAnimation(showButtonAnimation)
+            toWatchButton.startAnimation(showButtonAnimation)
+
+            favouriteButton.isClickable = true
+            toWatchButton.isClickable = true
+        }
+        else{
+            //Schowaj
+            favouriteButton.visibility = View.INVISIBLE
+            toWatchButton.visibility = View.INVISIBLE
+
+            favouriteButton.startAnimation(hideButtonAnimation)
+            toWatchButton.startAnimation(hideButtonAnimation)
+
+            favouriteButton.isClickable = false
+            toWatchButton.isClickable = false
         }
     }
 
