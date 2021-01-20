@@ -12,12 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviebase.Adapter.ActorAdapter
+import com.example.moviebase.Adapter.MovieVideosAdapter
 import com.example.moviebase.Adapter.bindImage
+import com.example.moviebase.DataModels.CrewShowFolder.Cast
+import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
+import com.example.moviebase.DataModels.MovieVideosFolder.Results
 import com.example.moviebase.DataModels.MovieViewClass
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.ShowViewModel
 import com.example.moviebase.ViewModel.MovieViewModel
-import com.example.moviebase.ViewModel.TV_ViewModel
+import com.example.moviebase.ViewModel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_movie_view.*
 import kotlinx.android.synthetic.main.fragment_movie_view.view.*
 
@@ -27,7 +33,7 @@ class MovieView : Fragment() {
 
     private val args by navArgs<MovieViewArgs>()
     private lateinit var mMovieViewModel: MovieViewModel
-    private lateinit var mTV_ViewModel: TV_ViewModel
+    private lateinit var mTVViewModel: TVViewModel
     private lateinit var mShowViewModel: ShowViewModel
     private lateinit var movieClass: MovieViewClass
     var buttonContainerClicked : Boolean  = false;
@@ -47,7 +53,7 @@ class MovieView : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_view, container, false)
         mMovieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-        mTV_ViewModel = ViewModelProvider(this).get(TV_ViewModel::class.java)
+        mTVViewModel = ViewModelProvider(this).get(TVViewModel::class.java)
         mShowViewModel = ViewModelProvider(this).get(ShowViewModel::class.java)
 
         showButtonAnimation = AnimationUtils.loadAnimation(context, R.anim.show_animation)
@@ -64,10 +70,11 @@ class MovieView : Fragment() {
                         calculateRating(item.vote_average)
                         calculateTime(item.runtime)
                         completeUI()
+                        AddMovieVideos()
                     })
             }
             "tv" -> {
-                mTV_ViewModel.getTVDetails(args.movieInfo.ID)
+                mTVViewModel.getTVDetails(args.movieInfo.ID)
                     .observe(viewLifecycleOwner, Observer { item ->
                         movieClass = MovieViewClass(item)
                         calculateRating(item.vote_average)
@@ -181,6 +188,9 @@ class MovieView : Fragment() {
             buttonContainerClicked = !buttonContainerClicked;
             ChangeButtonsStyle(buttonContainerClicked)
         }
+
+        CompleteCrewList()
+
         return view
     }
 
@@ -238,7 +248,7 @@ class MovieView : Fragment() {
                         //ISTNIEJE
                         showExist = true
                         mShowViewModel.checkFavourite(ID).observe(viewLifecycleOwner, Observer { value->
-                            Log.d("komunikat", value.toString())
+                            //Log.d("komunikat", value.toString())
                             if(value){
                                 isFavourite = true
                                 favouriteButton.setImageResource(R.drawable.ic_star_true)
@@ -291,4 +301,49 @@ class MovieView : Fragment() {
         }
     }
 
+    private fun CompleteCrewList(){
+        when(args.movieInfo.type){
+            "movie" ->{
+                mMovieViewModel.getMovieCrew(args.movieInfo.ID).observe(viewLifecycleOwner, Observer { items->
+                    if(items != null){
+                        AddCrewToRecycler(items)
+                    }
+                })
+            }
+            "tv" ->{
+                mTVViewModel.getTVCrew(args.movieInfo.ID).observe(viewLifecycleOwner, Observer { items->
+                    if(items != null){
+                        AddCrewToRecycler(items)
+                    }
+                })
+            }
+            else ->{
+                Toast.makeText(requireContext(), "Błąd rodzaju filmu/serialu", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun AddCrewToRecycler(crewShow: CrewShow){
+        val adapter = ActorAdapter()
+        val recyclerView = crewRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adapter.setData(crewShow.cast)
+    }
+
+    private fun AddMovieVideos(){
+        val adapter = MovieVideosAdapter(requireContext())
+        val recyclerView = movieVideosRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        mMovieViewModel.getMovieVideos(args.movieInfo.ID).observe(viewLifecycleOwner, Observer {item->
+            var youtubeList = mutableListOf<Results>()
+            for(i in item.results){
+                if(i.site == "YouTube"){
+                    youtubeList.add(i)
+                }
+            }
+            adapter.setData(youtubeList)
+        })
+    }
 }

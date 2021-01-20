@@ -1,10 +1,14 @@
 package com.example.moviebase.API
 
+import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
+import com.example.moviebase.DataModels.MovieVideosFolder.MovieVideos
+import com.example.moviebase.DataModels.MovieVideosFolder.Results
 import com.example.moviebase.DataModels.SearchModelFolder.SearchMovie
 import com.example.moviebase.DataModels.SearchModelFolder.SearchPeople
 import com.example.moviebase.DataModels.SearchModelFolder.SearchTv
 import com.example.moviebase.DataModels.TVDetailFolder.TV
+import com.example.moviebase.DataModels.TrendingModelFolder.Result
 import com.example.moviebase.DataModels.TrendingModelFolder.TrendingModel
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -55,14 +59,22 @@ interface MovieAPI {
     @GET("movie/{movieID}/credits${API}")
     suspend fun getMovieCrew(
         @Path("movieID") movieID: Int
-    ): Response<Int>
+    ): Response<CrewShow>
 
     //Aktorzy grający w danym serialu
     //https://developers.themoviedb.org/3/movies/get-movie-credits
     @GET("tv/{tvID}/credits${API}")
     suspend fun getTVCrew(
         @Path("tvID") tvID: Int
-    ): Response<Int>
+    ): Response<CrewShow>
+
+    //Dolaczone wideo do filmu
+    //https://developers.themoviedb.org/3/movies/get-movie-videos
+    @GET("movie/{movieID}/videos${API}")
+    suspend fun getMovieVideos(
+        @Path("movieID") movieID: Int
+    ): Response<MovieVideos>
+
 
     /*Wyszukiwanie filmów
     query => fraza do wyszukania
