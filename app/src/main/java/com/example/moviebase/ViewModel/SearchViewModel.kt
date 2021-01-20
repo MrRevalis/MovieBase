@@ -28,7 +28,7 @@ class SearchViewModel(application: Application): AndroidViewModel(application) {
     private var moviePage = 1
     private var peoplePage = 1
     private var showsPage = 1
-    private var searchInProgress = false
+    private var searchInProgress = true
 
     fun search(){
         moviePage = 1
@@ -40,6 +40,7 @@ class SearchViewModel(application: Application): AndroidViewModel(application) {
                 movies.postValue(repository.searchMovies(searchQuery, moviePage))
                 people.postValue(repository.searchPeople(searchQuery, peoplePage))
                 shows.postValue(repository.searchTv(searchQuery, showsPage))
+                searchInProgress = false
             }
             searched = true
         }
