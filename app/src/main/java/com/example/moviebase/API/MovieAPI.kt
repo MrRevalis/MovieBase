@@ -1,5 +1,6 @@
 package com.example.moviebase.API
 
+import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
 import com.example.moviebase.DataModels.SearchModelFolder.SearchMovie
 import com.example.moviebase.DataModels.SearchModelFolder.SearchPeople
@@ -55,14 +56,14 @@ interface MovieAPI {
     @GET("movie/{movieID}/credits${API}")
     suspend fun getMovieCrew(
         @Path("movieID") movieID: Int
-    ): Response<Int>
+    ): Response<CrewShow>
 
     //Aktorzy grający w danym serialu
     //https://developers.themoviedb.org/3/movies/get-movie-credits
     @GET("tv/{tvID}/credits${API}")
     suspend fun getTVCrew(
         @Path("tvID") tvID: Int
-    ): Response<Int>
+    ): Response<CrewShow>
 
     /*Wyszukiwanie filmów
     query => fraza do wyszukania

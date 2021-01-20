@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviebase.API.MovieAPI
 import com.example.moviebase.API.MovieRepository
+import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
 import com.example.moviebase.DataModels.TrendingModelFolder.TrendingModel
 import kotlinx.coroutines.Dispatchers
@@ -31,5 +32,14 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
             movie.postValue(arrivedData)
         }
         return movie
+    }
+
+    fun getMovieCrew(movieID: Int) : LiveData<CrewShow>{
+        var results = MutableLiveData<CrewShow>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val arrivedData = repository.getMovieCrew(movieID)
+            results.postValue(arrivedData)
+        }
+        return results
     }
 }
