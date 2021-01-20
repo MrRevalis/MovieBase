@@ -36,6 +36,7 @@ class SearchResultsFragment : Fragment() {
         fragmentLayoutManager = LinearLayoutManager(context)
         searchResultsAdapter = SearchResultsAdapter(searchViewModel)
 
+        //pobierz argument, jezeli nei jest ustawiony w viewmodelu
         if(searchViewModel.searchQuery.isNullOrEmpty()) searchViewModel.searchQuery = args.searchQuery
 
         searchViewModel.movies.observe(viewLifecycleOwner, Observer {

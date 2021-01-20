@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.DataModels.HelperClass
@@ -57,7 +58,9 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
                     val action = SearchResultsFragmentDirections.actionSearchResultsFragmentToMovieView(helperClass, list[position].name)
                     holder.itemView.findNavController().navigate(action)
                 }
-
+                SearchResultListModel.ResultType.PERSON -> {
+                    Toast.makeText(holder.itemView.context, "Going to actor: ${list[position].name} (${list[position].id})", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

@@ -6,5 +6,6 @@ data class PeopleSearchResult (
     val id: Int,
     val name: String,
     val popularity: Double,
-    val known_for_department: String
+    val known_for_department: String,
+    val known_for: List<SearchMovieDetail>
         )

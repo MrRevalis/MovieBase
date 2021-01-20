@@ -1,5 +1,6 @@
 package com.example.moviebase.DataModels.SearchModelFolder
 
+//uniwersalna klasa do recyclerview w searchresultsfragment
 class SearchResultListModel(item: Any) {
     val id: Int
     val type: ResultType
@@ -24,7 +25,10 @@ class SearchResultListModel(item: Any) {
                 poster = item.profile_path
                 name = item.name
                 date = ""
-                description = item.known_for_department
+                var descFactory = item.known_for_department
+                for(movie in item.known_for)
+                    descFactory += ", ${if(movie.media_type == "movie") movie.title else movie.name}"
+                description = descFactory
             }
             is TvSearchResult -> {
                 id = item.id
