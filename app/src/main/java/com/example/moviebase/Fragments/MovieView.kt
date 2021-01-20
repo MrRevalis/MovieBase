@@ -143,7 +143,7 @@ class MovieView : Fragment() {
                                     mShowViewModel.changeToWatch(movieClass.ID, false)
                                 }
                                 isToWatch = false
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark)
+                                toWatchButton.setImageResource(R.drawable.ic_eye)
                                 Toast.makeText(
                                     requireContext(),
                                     "${movieClass.title} został usunięty z listy ulubionych",
@@ -152,7 +152,7 @@ class MovieView : Fragment() {
                             } else {
                                 //DODAJEMY
                                 mShowViewModel.changeToWatch(movieClass.ID, true)
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark_true)
+                                toWatchButton.setImageResource(R.drawable.ic_eye_true)
                                 isToWatch = true
                                 Toast.makeText(
                                     requireContext(),
@@ -164,7 +164,7 @@ class MovieView : Fragment() {
                         else{
                             //NIEISTNIEJE
                             mShowViewModel.addFavourite(movieClass.createFavourite(isFavourite, !isToWatch))
-                            toWatchButton.setImageResource(R.drawable.ic_bookmark_true)
+                            toWatchButton.setImageResource(R.drawable.ic_eye_true)
                             isToWatch = true
                             Toast.makeText(
                                 requireContext(),
@@ -250,17 +250,17 @@ class MovieView : Fragment() {
                         mShowViewModel.checkToWatch(ID).observe(viewLifecycleOwner, Observer { value->
                             if(value){
                                 isToWatch = true
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark_true)
+                                toWatchButton.setImageResource(R.drawable.ic_eye_true)
                             }
                             else
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark)
+                                toWatchButton.setImageResource(R.drawable.ic_eye)
                         })
 
                     } else {
                         //NIEISTNIEJE
                         showExist = false
                         favouriteButton.setImageResource(R.drawable.ic_star)
-                        toWatchButton.setImageResource(R.drawable.ic_bookmark)
+                        toWatchButton.setImageResource(R.drawable.ic_eye)
                     }
                 })
         }

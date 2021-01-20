@@ -238,7 +238,7 @@
             android:visibility="invisible"
             android:backgroundTint="@color/black"
             app:tint="@null"
-            android:src="@drawable/ic_bookmark"
+            android:src="@drawable/ic_eye"
             app:maxImageSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/favouriteButton"></com.google.android.material.floatingactionbutton.FloatingActionButton>
