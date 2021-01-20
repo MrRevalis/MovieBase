@@ -1,6 +1,7 @@
 package com.example.moviebase.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviebase.Adapter.ActorAdapter
+import com.example.moviebase.Adapter.MovieVideosAdapter
 import com.example.moviebase.Adapter.bindImage
 import com.example.moviebase.DataModels.CrewShowFolder.Cast
 import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
+import com.example.moviebase.DataModels.MovieVideosFolder.Results
 import com.example.moviebase.DataModels.MovieViewClass
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.ShowViewModel
@@ -67,6 +70,7 @@ class MovieView : Fragment() {
                         calculateRating(item.vote_average)
                         calculateTime(item.runtime)
                         completeUI()
+                        AddMovieVideos()
                     })
             }
             "tv" -> {
@@ -325,5 +329,21 @@ class MovieView : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter.setData(crewShow.cast)
+    }
+
+    private fun AddMovieVideos(){
+        val adapter = MovieVideosAdapter(requireContext())
+        val recyclerView = movieVideosRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        mMovieViewModel.getMovieVideos(args.movieInfo.ID).observe(viewLifecycleOwner, Observer {item->
+            var youtubeList = mutableListOf<Results>()
+            for(i in item.results){
+                if(i.site == "YouTube"){
+                    youtubeList.add(i)
+                }
+            }
+            adapter.setData(youtubeList)
+        })
     }
 }
