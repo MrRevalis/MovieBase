@@ -6,6 +6,19 @@
     <string name="tvshows">Seriale</string>
     <string name="actor">Aktor</string>
     <string name="producer">Producent</string>
+    <string name="dataError">Błąd danych</string>
+    <string name="addedToList">został dodany do listy</string>
+    <string name="removedFromList">został usunięty z listy</string>
+    <string name="favourite">ulubionych</string>
+    <string name="toWatch">do obejrzenia</string>
+    <string name="myList">Moja lista</string>
+    <string name="trending">Trendujące</string>
+    <string name="today">Dzisiaj</string>
+    <string name="thisWeek">Ten tydzień</string>
+    <string name="communityRating">Ocena użytkowników</string>
+    <string name="description">Opis</string>
+    <string name="mainPage">Strona główna</string>
+    <string name="searchingPage">Wyszukiwarka</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
