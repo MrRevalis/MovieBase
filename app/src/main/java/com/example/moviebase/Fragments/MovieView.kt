@@ -1,6 +1,7 @@
 package com.example.moviebase.Fragments
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -343,7 +344,10 @@ class MovieView : Fragment() {
                     youtubeList.add(i)
                 }
             }
-            adapter.setData(youtubeList)
+            if(youtubeList.size == 0){
+                appendVideo.visibility =  View.INVISIBLE
+            }else
+                adapter.setData(youtubeList)
         })
     }
 
@@ -359,7 +363,11 @@ class MovieView : Fragment() {
                     youtubeList.add(i)
                 }
             }
-            adapter.setData(youtubeList)
+
+            if(youtubeList.size == 0){
+                appendVideo.visibility =  View.INVISIBLE
+            }else
+                adapter.setData(youtubeList)
         })
     }
 }
