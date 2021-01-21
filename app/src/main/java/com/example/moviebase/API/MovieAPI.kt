@@ -75,6 +75,12 @@ interface MovieAPI {
         @Path("movieID") movieID: Int
     ): Response<MovieVideos>
 
+    //Dolaczone wideo do tv
+    //https://developers.themoviedb.org/3/tv/get-tv-videos
+    @GET("tv/{tvID}/videos${API}")
+    suspend fun getTVVideos(
+        @Path("tvID") tvID: Int
+    ): Response<MovieVideos>
 
     /*Wyszukiwanie filmów
     query => fraza do wyszukania

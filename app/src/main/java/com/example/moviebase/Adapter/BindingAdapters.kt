@@ -22,13 +22,13 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-fun setPictureWithBackground(imgView: ImageView, layout: ConstraintLayout, imgUrl: String){
+/*fun setPictureWithBackground(imgView: ImageView, layout: ConstraintLayout, imgUrl: String){
     var bitmap = Glide.with(layout.context)
         .asBitmap()
         .load(imgUrl)
         .into(object : CustomTarget<Bitmap?>(){
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                Log.d("komunikat", "gotowe")
+                //Log.d("komunikat", "gotowe")
                 var color = resource.getColor(10, 10)
                 layout.setBackgroundColor(color.toArgb())
                 imgView.setImageBitmap(resource)
@@ -39,4 +39,4 @@ fun setPictureWithBackground(imgView: ImageView, layout: ConstraintLayout, imgUr
         })
 
     Log.d("komunikat", "TEST")
-}
+}*/

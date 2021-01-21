@@ -1,7 +1,7 @@
 package com.example.moviebase.Fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviebase.Adapter.ActorAdapter
 import com.example.moviebase.Adapter.MovieVideosAdapter
 import com.example.moviebase.Adapter.bindImage
-import com.example.moviebase.DataModels.CrewShowFolder.Cast
 import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.DataModels.MovieVideosFolder.Results
 import com.example.moviebase.DataModels.MovieViewClass
 import com.example.moviebase.R
-import com.example.moviebase.ViewModel.ShowViewModel
 import com.example.moviebase.ViewModel.MovieViewModel
+import com.example.moviebase.ViewModel.ShowViewModel
 import com.example.moviebase.ViewModel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_movie_view.*
 import kotlinx.android.synthetic.main.fragment_movie_view.view.*
@@ -80,6 +79,7 @@ class MovieView : Fragment() {
                         calculateRating(item.vote_average)
                         calculateTime(item.episode_run_time)
                         completeUI()
+                        AddTVVideos()
                     })
             }
             else -> {
@@ -332,11 +332,27 @@ class MovieView : Fragment() {
     }
 
     private fun AddMovieVideos(){
-        val adapter = MovieVideosAdapter(requireContext())
+        val adapter = MovieVideosAdapter()
         val recyclerView = movieVideosRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         mMovieViewModel.getMovieVideos(args.movieInfo.ID).observe(viewLifecycleOwner, Observer {item->
+            var youtubeList = mutableListOf<Results>()
+            for(i in item.results){
+                if(i.site == "YouTube"){
+                    youtubeList.add(i)
+                }
+            }
+            adapter.setData(youtubeList)
+        })
+    }
+
+    private fun AddTVVideos(){
+        val adapter = MovieVideosAdapter()
+        val recyclerView = movieVideosRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        mTVViewModel.getTVVideos(args.movieInfo.ID).observe(viewLifecycleOwner, Observer {item->
             var youtubeList = mutableListOf<Results>()
             for(i in item.results){
                 if(i.site == "YouTube"){

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviebase.API.MovieAPI
 import com.example.moviebase.API.TVRepository
 import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
+import com.example.moviebase.DataModels.MovieVideosFolder.MovieVideos
 import com.example.moviebase.DataModels.TVDetailFolder.TV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,5 +32,14 @@ class TVViewModel(application: Application) : AndroidViewModel(application) {
             tv.postValue(arrivedData)
         }
         return tv
+    }
+
+    fun getTVVideos(id: Int): LiveData<MovieVideos> {
+        var videos = MutableLiveData<MovieVideos>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val arrivedData = repository.getTVVideos(id)
+            videos.postValue(arrivedData)
+        }
+        return videos
     }
 }
