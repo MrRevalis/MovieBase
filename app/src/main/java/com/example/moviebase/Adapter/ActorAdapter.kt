@@ -11,6 +11,7 @@ import com.example.moviebase.DataModels.CrewShowFolder.Cast
 import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.DataModels.HelperClass
 import com.example.moviebase.Fragments.FavouriteListDirections
+import com.example.moviebase.Fragments.MovieViewDirections
 import com.example.moviebase.R
 import kotlinx.android.synthetic.main.actor_row.view.*
 
@@ -40,6 +41,8 @@ class ActorAdapter() : RecyclerView.Adapter<ActorAdapter.MyViewHolder>() {
 
         holder.itemView.setOnClickListener {
             Log.d("komunikat", "Przejdz do widoku aktora")
+            val action = MovieViewDirections.actionMovieViewToPersonFragment(currentItem.id)
+            holder.itemView.findNavController().navigate(action)
         }
     }
 

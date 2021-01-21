@@ -59,7 +59,10 @@ class SearchResultsAdapter(private val viewModel: SearchViewModel): RecyclerView
                     holder.itemView.findNavController().navigate(action)
                 }
                 SearchResultListModel.ResultType.PERSON -> {
-                    Toast.makeText(holder.itemView.context, "Going to actor: ${list[position].name} (${list[position].id})", Toast.LENGTH_SHORT).show()
+                    var helperClass = HelperClass(list[position].id,"person")
+                    val action = SearchResultsFragmentDirections.actionSearchResultsFragmentToPersonFragment(list[position].id)
+                    holder.itemView.findNavController().navigate(action)
+                    //Toast.makeText(holder.itemView.context, "Going to actor: ${list[position].name} (${list[position].id})", Toast.LENGTH_SHORT).show()
                 }
             }
         }

@@ -19,6 +19,12 @@
     <string name="description">Opis</string>
     <string name="mainPage">Strona główna</string>
     <string name="searchingPage">Wyszukiwarka</string>
+    <string name="birthday">Urodzona/y</string>
+    <string name="deathday">Zmarła/y</string>
+    <string name="birthPlace">Miejsce narodzin</string>
+    <string name="biography">Biografia</string>
+    <string name="knownFrom">Znana/y z:</string>
+    <string name="isLiving">Wciąż żyje!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
