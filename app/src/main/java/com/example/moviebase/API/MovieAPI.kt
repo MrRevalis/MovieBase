@@ -5,6 +5,7 @@ import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
 import com.example.moviebase.DataModels.MovieVideosFolder.MovieVideos
 import com.example.moviebase.DataModels.MovieVideosFolder.Results
 import com.example.moviebase.DataModels.PersonDetailFolder.PersonDetail
+import com.example.moviebase.DataModels.PersonMoviesTVsFolder.PersonMovieTVCredits
 import com.example.moviebase.DataModels.SearchModelFolder.SearchMovie
 import com.example.moviebase.DataModels.SearchModelFolder.SearchPeople
 import com.example.moviebase.DataModels.SearchModelFolder.SearchTv
@@ -60,6 +61,12 @@ interface MovieAPI {
     suspend fun getPersonDetail(
         @Path("person_id") person_id: Int
     ) : Response<PersonDetail>
+
+    //Filmy / seriale w których aktor występuje
+    @GET("person/{person_id}/combined_credits${API}")
+    suspend fun getPersonMoviesTVs(
+        @Path("person_id") person_id: Int
+    ) : Response<PersonMovieTVCredits>
 
     //Aktorzy grający w danym filmie
     //https://developers.themoviedb.org/3/movies/get-movie-credits

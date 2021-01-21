@@ -99,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/biography" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/knownFrom"
+            android:id="@+id/knownFromRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"

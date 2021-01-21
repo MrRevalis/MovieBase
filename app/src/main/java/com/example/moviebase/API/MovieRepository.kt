@@ -32,4 +32,8 @@ class MovieRepository(private val movieAPI: MovieAPI) : SafeApiRequest() {
     suspend fun getMovieVideos(movieID: Int) = apiRequest {
         movieAPI.getMovieVideos(movieID)
     }
+
+    suspend fun getPersonMoviesTVs(person_id: Int) = apiRequest {
+        movieAPI.getPersonMoviesTVs(person_id)
+    }
 }

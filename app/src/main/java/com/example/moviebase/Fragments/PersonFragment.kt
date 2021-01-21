@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviebase.Adapter.MovieTVAdapter
 import com.example.moviebase.Adapter.bindImage
+import com.example.moviebase.DataModels.PersonMoviesTVsFolder.PersonMovieTVCredits
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.PersonViewModel
+import kotlinx.android.synthetic.main.fragment_person_view.*
 import kotlinx.android.synthetic.main.fragment_person_view.view.*
 
 //const val imageSource: String = "https://image.tmdb.org/t/p/w500"
@@ -43,6 +47,7 @@ class PersonFragment : Fragment(){
             bindImage(view.imageView, imageSource + item.profile_path)
         })
 
+        CompleteMovieTVList()
 
         return view
     }
@@ -50,4 +55,34 @@ class PersonFragment : Fragment(){
     companion object{
         fun newInstance() = PersonFragment()
     }
+
+    private fun CompleteMovieTVList(){
+        personViewModel.getPersonMoviesTVs(args.id).observe(viewLifecycleOwner, Observer { item ->
+            val adapter = MovieTVAdapter()
+            val recyclerView = knownFromRecyclerView
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter.setData(item.cast)
+        })
+    }
+
+    /*private fun CompleteCrewList(){
+        when(args.movieInfo.type){
+            "movie" ->{
+                mMovieViewModel.getMovieCrew(args.movieInfo.ID).observe(viewLifecycleOwner, Observer { items->
+                    if(items != null){
+                        AddCrewToRecycler(items)
+                    }
+                })
+            }
+        }
+    }
+
+    private fun AddCrewToRecycler(crewShow: CrewShow){
+        val adapter = ActorAdapter()
+        val recyclerView = crewRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adapter.setData(crewShow.cast)
+    }*/
 }
