@@ -83,7 +83,7 @@ class MovieView : Fragment() {
                     })
             }
             else -> {
-                Toast.makeText(requireContext(), "Błąd danych", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.dataError), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -104,7 +104,7 @@ class MovieView : Fragment() {
                                 favouriteButton.setImageResource(R.drawable.ic_star)
                                 Toast.makeText(
                                     requireContext(),
-                                    "${movieClass.title} został usunięty z listy ulubionych",
+                                    "${movieClass.title} ${getString(R.string.removedFromList)} ${getString(R.string.favourite)}",
                                     Toast.LENGTH_LONG
                                 ).show()
                             } else {
@@ -114,7 +114,7 @@ class MovieView : Fragment() {
                                 isFavourite = true
                                 Toast.makeText(
                                     requireContext(),
-                                    "${movieClass.title} został dodany do listy ulubionych",
+                                    "${movieClass.title} ${getString(R.string.addedToList)} ${getString(R.string.favourite)}",
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
@@ -126,7 +126,7 @@ class MovieView : Fragment() {
                             isFavourite = true
                             Toast.makeText(
                                 requireContext(),
-                                "${movieClass.title} został dodany do listy ulubionych",
+                                "${movieClass.title} ${getString(R.string.addedToList)} ${getString(R.string.favourite)}",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -150,20 +150,20 @@ class MovieView : Fragment() {
                                     mShowViewModel.changeToWatch(movieClass.ID, false)
                                 }
                                 isToWatch = false
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark)
+                                toWatchButton.setImageResource(R.drawable.ic_eye)
                                 Toast.makeText(
                                     requireContext(),
-                                    "${movieClass.title} został usunięty z listy ulubionych",
+                                    "${movieClass.title} ${getString(R.string.removedFromList)} ${getString(R.string.toWatch)}",
                                     Toast.LENGTH_LONG
                                 ).show()
                             } else {
                                 //DODAJEMY
                                 mShowViewModel.changeToWatch(movieClass.ID, true)
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark_true)
+                                toWatchButton.setImageResource(R.drawable.ic_eye_true)
                                 isToWatch = true
                                 Toast.makeText(
                                     requireContext(),
-                                    "${movieClass.title} został dodany do listy ulubionych",
+                                    "${movieClass.title} ${getString(R.string.addedToList)} ${getString(R.string.toWatch)}",
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
@@ -171,11 +171,11 @@ class MovieView : Fragment() {
                         else{
                             //NIEISTNIEJE
                             mShowViewModel.addFavourite(movieClass.createFavourite(isFavourite, !isToWatch))
-                            toWatchButton.setImageResource(R.drawable.ic_bookmark_true)
+                            toWatchButton.setImageResource(R.drawable.ic_eye_true)
                             isToWatch = true
                             Toast.makeText(
                                 requireContext(),
-                                "${movieClass.title} został dodany do listy ulubionych",
+                                "${movieClass.title} ${getString(R.string.addedToList)} ${getString(R.string.toWatch)}",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -260,17 +260,17 @@ class MovieView : Fragment() {
                         mShowViewModel.checkToWatch(ID).observe(viewLifecycleOwner, Observer { value->
                             if(value){
                                 isToWatch = true
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark_true)
+                                toWatchButton.setImageResource(R.drawable.ic_eye_true)
                             }
                             else
-                                toWatchButton.setImageResource(R.drawable.ic_bookmark)
+                                toWatchButton.setImageResource(R.drawable.ic_eye)
                         })
 
                     } else {
                         //NIEISTNIEJE
                         showExist = false
                         favouriteButton.setImageResource(R.drawable.ic_star)
-                        toWatchButton.setImageResource(R.drawable.ic_bookmark)
+                        toWatchButton.setImageResource(R.drawable.ic_eye)
                     }
                 })
         }

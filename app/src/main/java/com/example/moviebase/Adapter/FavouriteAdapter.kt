@@ -36,6 +36,10 @@ class FavouriteAdapter() : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>()
         holder.itemView.favouriteTitle.text = currentItem.title
         holder.itemView.favouriteDescription.text = currentItem.movieDescription
 
+        if(currentItem.toWatch){
+            holder.itemView.labelIcon.setImageResource(R.drawable.ic_eye_true)
+        } else holder.itemView.labelIcon.visibility = View.GONE
+
         holder.itemView.setOnClickListener {
             var helperClass = HelperClass(currentItem.itemID, currentItem.type)
             val action = FavouriteListDirections.actionFavouriteListToMovieView(helperClass, currentItem.title)

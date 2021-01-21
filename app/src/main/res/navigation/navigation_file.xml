@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/searchResultsFragment"
         android:name="com.example.moviebase.Fragments.SearchResultsFragment"
-        android:label="Wyszukiwarka"
+        android:label="@string/searchingPage"
         tools:layout="@layout/fragment_search_results">
         <action
             android:id="@+id/action_searchResultsFragment_to_mainFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/favouriteList"
         android:name="com.example.moviebase.Fragments.FavouriteList"
-        android:label="Moja lista"
+        android:label="@string/myList"
         tools:layout="@layout/fragment_favourite_list">
         <action
             android:id="@+id/action_favouriteList_to_mainFragment"
