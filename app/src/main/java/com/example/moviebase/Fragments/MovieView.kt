@@ -306,15 +306,21 @@ class MovieView : Fragment() {
         when(args.movieInfo.type){
             "movie" ->{
                 mMovieViewModel.getMovieCrew(args.movieInfo.ID).observe(viewLifecycleOwner, Observer { items->
-                    if(items != null){
+                    if(items != null && items.cast.isNotEmpty()){
                         AddCrewToRecycler(items)
+                    }
+                    else{
+                        textActors.visibility = View.INVISIBLE
                     }
                 })
             }
             "tv" ->{
                 mTVViewModel.getTVCrew(args.movieInfo.ID).observe(viewLifecycleOwner, Observer { items->
-                    if(items != null){
+                    if(items != null && items.cast.isNotEmpty()){
                         AddCrewToRecycler(items)
+                    }
+                    else{
+                        textActors.visibility = View.INVISIBLE
                     }
                 })
             }
