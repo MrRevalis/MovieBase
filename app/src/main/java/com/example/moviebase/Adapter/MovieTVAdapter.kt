@@ -47,17 +47,3 @@ class MovieTVAdapter : RecyclerView.Adapter<MovieTVAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 }
-
-/* override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var currentItem = castList[position]
-        bindImage(holder.itemView.actorPicture, imageSource + currentItem.profile_path)
-        holder.itemView.actorName.text = currentItem.original_name
-        holder.itemView.actorRole.text = currentItem.character
-
-        holder.itemView.setOnClickListener {
-            Log.d("komunikat", "Przejdz do widoku aktora")
-            val action = MovieViewDirections.actionMovieViewToPersonFragment(currentItem.id)
-            holder.itemView.findNavController().navigate(action)
-        }
-    }
-*/

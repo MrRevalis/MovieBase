@@ -19,14 +19,9 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    //ta sama struktura co trending_item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.trending_item, parent, false)
-
-        view.setOnClickListener {
-            //Toast.makeText(parent.context, view.trendingTitle.text, Toast.LENGTH_SHORT).show()
-        }
 
         return MyViewHolder(view)
     }
@@ -64,9 +59,3 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.MyViewHolder>() {
     }
 
 }
-
-
-/*      var rating: Int = (currentItem.vote_average * 10).toInt()
-        holder.itemView.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
-        holder.itemView.movieRating.progress = rating
-*/

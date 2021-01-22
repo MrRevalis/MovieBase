@@ -18,30 +18,18 @@ import com.example.moviebase.ViewModel.PersonViewModel
 import kotlinx.android.synthetic.main.fragment_person_view.*
 import kotlinx.android.synthetic.main.fragment_person_view.view.*
 
-//const val imageSource: String = "https://image.tmdb.org/t/p/w500"
-
 class PersonFragment : Fragment(){
     private val args by navArgs<PersonFragmentArgs>()
     private lateinit var personViewModel: PersonViewModel
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
-       // return super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_person_view, container, false)
         personViewModel = ViewModelProvider(this).get(PersonViewModel::class.java)
 
-        Log.d("test","jestem tu")
         personViewModel.getPersonDetails(args.id).observe(viewLifecycleOwner, Observer { item ->
             view.personName.text = item.name
             view.birthday.text = item.birthday
-            //view.deathday.text = item.deathday
-            if (item.deathday.isNullOrEmpty()){// != "2131755061"){ //|| item.deathday != null){
-                //view.deathday.text = R.string.isLiving.toString()
-                Log.d("test","nie zmarł")
-            }
-            else{
-                view.deathday.text = item.deathday
-                Log.d("test"," zmarł")
-            }
+            if (!item.deathday.isNullOrEmpty()) view.deathday.text = item.deathday
             view.birthPlace.text = item.place_of_birth
             view.biography.text = item.biography
             bindImage(view.imageView, imageSource + item.profile_path)
