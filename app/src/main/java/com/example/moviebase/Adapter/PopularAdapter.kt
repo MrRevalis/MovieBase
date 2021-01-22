@@ -42,7 +42,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.MyViewHolder>() {
         holder.itemView.movieRating.progress = rating
 
         holder.itemView.trendingMovie.setOnClickListener {
-            var title = if (currentItem.title.isNullOrEmpty()) "" else currentItem.title
+            var title = if(currentItem.type == "movie") if (currentItem.title.isNullOrEmpty()) "" else currentItem.title else if (currentItem.name.isNullOrEmpty()) "" else currentItem.name
             val action = MainFragmentDirections.actionMainFragmentToMovieView(
                 HelperClass(
                     currentItem.id,

@@ -30,6 +30,10 @@ class PersonFragment : Fragment(){
             view.personName.text = item.name
             view.birthday.text = item.birthday
             if (!item.deathday.isNullOrEmpty()) view.deathday.text = item.deathday
+            else {
+                view.deathday.visibility = View.GONE
+                view.textView8.visibility = View.GONE
+            }
             view.birthPlace.text = item.place_of_birth
             view.biography.text = item.biography
             bindImage(view.imageView, imageSource + item.profile_path)
