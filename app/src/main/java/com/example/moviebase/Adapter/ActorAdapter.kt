@@ -41,7 +41,7 @@ class ActorAdapter() : RecyclerView.Adapter<ActorAdapter.MyViewHolder>() {
 
         holder.itemView.setOnClickListener {
             Log.d("komunikat", "Przejdz do widoku aktora")
-            val action = MovieViewDirections.actionMovieViewToPersonFragment(currentItem.id)
+            val action = MovieViewDirections.actionMovieViewToPersonFragment(currentItem.id, currentItem.name)
             holder.itemView.findNavController().navigate(action)
         }
     }

@@ -74,12 +74,15 @@
     <fragment
         android:id="@+id/personFragment"
         android:name="com.example.moviebase.Fragments.PersonFragment"
-        android:label="PersonFragment" >
+        android:label="{name}">
         <action
             android:id="@+id/action_personFragment_to_movieView"
             app:destination="@id/movieView" />
         <argument
             android:name="id"
             app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 </navigation>
