@@ -8,6 +8,7 @@ import com.example.moviebase.DataModels.PersonDetailFolder.PersonDetail
 import com.example.moviebase.DataModels.PersonMoviesTVsFolder.PersonMovieTVCredits
 import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularMovieDetail
 import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularMovieResults
+import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularPersonDetail
 import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularTVDetail
 import com.example.moviebase.DataModels.SearchModelFolder.SearchMovie
 import com.example.moviebase.DataModels.SearchModelFolder.SearchPeople
@@ -50,6 +51,11 @@ interface MovieAPI {
     //Popularne seriale
     @GET("tv/popular${API}")
     suspend fun getPopularTV(): Response<PopularTVDetail>
+
+    //Egzamin
+    //Popularni aktorzy
+    @GET("person/popular${API}")
+    suspend fun getPopularPerson(): Response<PopularPersonDetail>
 
     /*Informacje o filmie
     https://developers.themoviedb.org/3/movies/get-movie-details

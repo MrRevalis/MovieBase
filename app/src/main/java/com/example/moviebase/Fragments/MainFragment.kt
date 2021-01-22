@@ -14,6 +14,7 @@ import com.example.moviebase.Adapter.TrendingAdapter
 import com.example.moviebase.DataModels.PopularMovieTVFolder.WhatContent
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.MovieViewModel
+import com.example.moviebase.ViewModel.PersonViewModel
 import com.example.moviebase.ViewModel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -22,6 +23,7 @@ class MainFragment : Fragment() {
 
     private lateinit var mMovieViewModel: MovieViewModel
     private lateinit var tTVViewModel: TVViewModel
+    private lateinit var pPersonViewModel: PersonViewModel
     private var timeWindow = "day"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,7 @@ class MainFragment : Fragment() {
 
         mMovieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         tTVViewModel = ViewModelProvider(this).get(TVViewModel::class.java)
+        pPersonViewModel = ViewModelProvider(this).get(PersonViewModel::class.java)
 
         //TRENDING
         view.trendingToday.isSelected = true
@@ -84,7 +87,11 @@ class MainFragment : Fragment() {
 
         mMovieViewModel.getPopularMovie().observe(viewLifecycleOwner, Observer { item ->
             tTVViewModel.getPopularTV().observe(viewLifecycleOwner, Observer {  item2 ->
-                popularAdapter.setData(WhatContent(item.results, item2.results).results)
+                //popularAdapter.setData(WhatContent(item.results, item2.results).results)
+                //Egzamin
+                pPersonViewModel.getPopularPerson().observe(viewLifecycleOwner, Observer { item3 ->
+                    popularAdapter.setData(WhatContent(item.results, item2.results, item3.results).results)
+                })
             })
         })
 

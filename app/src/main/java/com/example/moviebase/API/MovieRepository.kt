@@ -40,4 +40,9 @@ class MovieRepository(private val movieAPI: MovieAPI) : SafeApiRequest() {
     suspend fun getPersonMoviesTVs(person_id: Int) = apiRequest {
         movieAPI.getPersonMoviesTVs(person_id)
     }
+
+    //Egzamin
+    suspend fun getPopularPerson() = apiRequest {
+        movieAPI.getPopularPerson()
+    }
 }

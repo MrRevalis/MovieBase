@@ -1,7 +1,7 @@
 package com.example.moviebase.DataModels.PopularMovieTVFolder
 
 
-class WhatContent(popularMovieResults: List<PopularMovieResults>, popularTVResults: List<PopularTVResults>){
+class WhatContent(popularMovieResults: List<PopularMovieResults>, popularTVResults: List<PopularTVResults>, popularPersonResults: List<PopularPersonResults>){
     val results = mutableListOf<PopularContent>()
 
     init {
@@ -32,6 +32,22 @@ class WhatContent(popularMovieResults: List<PopularMovieResults>, popularTVResul
                     item.first_air_date,
                     item.popularity,
                     item.vote_average
+                )
+            )
+        }
+        //Egzamin
+        for (item in popularPersonResults){
+            results.add(
+                PopularContent(
+                    item.id,
+                    "person",
+                    "",
+                    item.name,
+                    item.profile_path,
+                    "",
+                    "",
+                    item.popularity,
+                    0.0//item.known_for.vote_average
                 )
             )
         }

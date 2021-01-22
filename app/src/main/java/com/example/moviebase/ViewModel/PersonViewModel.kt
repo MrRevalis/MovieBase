@@ -9,6 +9,8 @@ import com.example.moviebase.API.MovieAPI
 import com.example.moviebase.API.MovieRepository
 import com.example.moviebase.DataModels.PersonDetailFolder.PersonDetail
 import com.example.moviebase.DataModels.PersonMoviesTVsFolder.PersonMovieTVCredits
+import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularMovieDetail
+import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularPersonDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,16 @@ class PersonViewModel(application: Application) : AndroidViewModel(application) 
         var results = MutableLiveData<PersonMovieTVCredits>()
         viewModelScope.launch(Dispatchers.IO) {
             val arrivedData = repository.getPersonMoviesTVs(person_id)
+            results.postValue(arrivedData)
+        }
+        return results
+    }
+
+    //Egzamin
+    fun getPopularPerson() : LiveData<PopularPersonDetail>{
+        var results = MutableLiveData<PopularPersonDetail>()
+        viewModelScope.launch(Dispatchers.IO){
+            val arrivedData = repository.getPopularPerson()
             results.postValue(arrivedData)
         }
         return results

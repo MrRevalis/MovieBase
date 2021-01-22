@@ -19,6 +19,10 @@
         <action
             android:id="@+id/action_mainFragment_to_favouriteList"
             app:destination="@id/favouriteList" />
+        <!-- Egzamin -->
+        <action
+            android:id="@+id/action_mainFragment_to_personFragment"
+            app:destination="@id/personFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieView"

@@ -36,6 +36,8 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.MyViewHolder>() {
         holder.itemView.trendingImage
         bindImage(holder.itemView.trendingImage, imageSource + currentItem.poster_path)
         holder.itemView.trendingTitle.text = if (currentItem.title.isNullOrEmpty()) currentItem.name else currentItem.title
+
+
         holder.itemView.trendingRelease.text = if(currentItem.release_date.isNullOrEmpty()) currentItem.first_air_date else currentItem.release_date
         var rating: Int = (currentItem.vote_average * 10).toInt()
         holder.itemView.movieRatingText.text = if (rating == 0) "NR" else "${rating}%"
@@ -43,13 +45,26 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.MyViewHolder>() {
 
         holder.itemView.trendingMovie.setOnClickListener {
             var title = if(currentItem.type == "movie") if (currentItem.title.isNullOrEmpty()) "" else currentItem.title else if (currentItem.name.isNullOrEmpty()) "" else currentItem.name
-            val action = MainFragmentDirections.actionMainFragmentToMovieView(
-                HelperClass(
-                    currentItem.id,
-                    currentItem.type
-                ), title
-            )
-            holder.itemView.findNavController().navigate(action)
+            if (currentItem.type != "person"){
+                val action = MainFragmentDirections.actionMainFragmentToMovieView(
+                    HelperClass(
+                        currentItem.id,
+                        currentItem.type
+                    ), title
+                )
+                holder.itemView.findNavController().navigate(action)
+            } //Egzamin
+            else{
+                //holder.itemView.movieRating.visibility = View.GONE
+                //holder.itemView.movieRatingText.visibility = View.GONE
+                val action = MainFragmentDirections.actionMainFragmentToPersonFragment(
+                    currentItem.id, title
+                )
+                holder.itemView.findNavController().navigate(action)
+
+            }
+
+
         }
     }
 
