@@ -310,7 +310,7 @@ class MovieView : Fragment() {
                         AddCrewToRecycler(items)
                     }
                     else{
-                        textActors.visibility = View.INVISIBLE
+                        textActors.visibility = View.GONE
                     }
                 })
             }
@@ -320,7 +320,7 @@ class MovieView : Fragment() {
                         AddCrewToRecycler(items)
                     }
                     else{
-                        textActors.visibility = View.INVISIBLE
+                        textActors.visibility = View.GONE
                     }
                 })
             }
@@ -351,7 +351,7 @@ class MovieView : Fragment() {
                 }
             }
             if(youtubeList.size == 0){
-                appendVideo.visibility =  View.INVISIBLE
+                appendVideo.visibility =  View.GONE
             }else
                 adapter.setData(youtubeList)
         })
@@ -371,7 +371,7 @@ class MovieView : Fragment() {
             }
 
             if(youtubeList.size == 0){
-                appendVideo.visibility =  View.INVISIBLE
+                appendVideo.visibility =  View.GONE
             }else
                 adapter.setData(youtubeList)
         })
