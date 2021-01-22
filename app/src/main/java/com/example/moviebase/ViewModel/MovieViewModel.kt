@@ -10,6 +10,7 @@ import com.example.moviebase.API.MovieRepository
 import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.DataModels.MovieDetailFolder.MovieDetail
 import com.example.moviebase.DataModels.MovieVideosFolder.MovieVideos
+import com.example.moviebase.DataModels.PopularMovieTVFolder.PopularMovieDetail
 import com.example.moviebase.DataModels.TrendingModelFolder.TrendingModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,6 +49,15 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
         var results = MutableLiveData<MovieVideos>()
         viewModelScope.launch(Dispatchers.IO) {
             val arrivedData = repository.getMovieVideos(movieID)
+            results.postValue(arrivedData)
+        }
+        return results
+    }
+
+    fun getPopularMovie() : LiveData<PopularMovieDetail>{
+        var results = MutableLiveData<PopularMovieDetail>()
+        viewModelScope.launch(Dispatchers.IO){
+            val arrivedData = repository.getPopularMovie()
             results.postValue(arrivedData)
         }
         return results

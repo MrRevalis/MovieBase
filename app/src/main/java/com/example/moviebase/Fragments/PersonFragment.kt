@@ -33,15 +33,15 @@ class PersonFragment : Fragment(){
         personViewModel.getPersonDetails(args.id).observe(viewLifecycleOwner, Observer { item ->
             view.personName.text = item.name
             view.birthday.text = item.birthday
-            view.deathday.text = item.deathday
-            /*if (item.deathday != "2131755061"){ //|| item.deathday != null){
-                view.deathday.text = item.deathday
+            //view.deathday.text = item.deathday
+            if (item.deathday.isNullOrEmpty()){// != "2131755061"){ //|| item.deathday != null){
+                //view.deathday.text = R.string.isLiving.toString()
                 Log.d("test","nie zmarł")
             }
             else{
-                view.deathday.text = R.string.isLiving.toString()
+                view.deathday.text = item.deathday
                 Log.d("test"," zmarł")
-            }*/
+            }
             view.birthPlace.text = item.place_of_birth
             view.biography.text = item.biography
             bindImage(view.imageView, imageSource + item.profile_path)
@@ -65,24 +65,4 @@ class PersonFragment : Fragment(){
             adapter.setData(item.cast)
         })
     }
-
-    /*private fun CompleteCrewList(){
-        when(args.movieInfo.type){
-            "movie" ->{
-                mMovieViewModel.getMovieCrew(args.movieInfo.ID).observe(viewLifecycleOwner, Observer { items->
-                    if(items != null){
-                        AddCrewToRecycler(items)
-                    }
-                })
-            }
-        }
-    }
-
-    private fun AddCrewToRecycler(crewShow: CrewShow){
-        val adapter = ActorAdapter()
-        val recyclerView = crewRecyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        adapter.setData(crewShow.cast)
-    }*/
 }

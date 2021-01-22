@@ -5,6 +5,10 @@ class MovieRepository(private val movieAPI: MovieAPI) : SafeApiRequest() {
         movieAPI.getTrending(mediaType, timeWindow)
     }
 
+    suspend fun getPopularMovie() = apiRequest {
+        movieAPI.getPopularMovie()
+    }
+
     suspend fun getMovieDetails(id: Int) = apiRequest {
         movieAPI.getMovieDetails(id)
     }

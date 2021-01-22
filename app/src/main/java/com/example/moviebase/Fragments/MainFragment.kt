@@ -9,15 +9,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviebase.Adapter.PopularAdapter
 import com.example.moviebase.Adapter.TrendingAdapter
+import com.example.moviebase.DataModels.PopularMovieTVFolder.WhatContent
 import com.example.moviebase.R
 import com.example.moviebase.ViewModel.MovieViewModel
+import com.example.moviebase.ViewModel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment : Fragment() {
 
     private lateinit var mMovieViewModel: MovieViewModel
+    private lateinit var tTVViewModel: TVViewModel
     private var timeWindow = "day"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +35,9 @@ class MainFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         mMovieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        tTVViewModel = ViewModelProvider(this).get(TVViewModel::class.java)
 
+        //TRENDING
         view.trendingToday.isSelected = true
 
         val adapter = TrendingAdapter()
@@ -68,6 +74,19 @@ class MainFragment : Fragment() {
                     })
             }
         }
+
+        //POPULAR
+        val popularAdapter = PopularAdapter()
+        val popularRecyclerView = view.recyclerViewPopular
+        popularRecyclerView.adapter = popularAdapter
+        popularRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        mMovieViewModel.getPopularMovie().observe(viewLifecycleOwner, Observer { item ->
+            tTVViewModel.getPopularTV().observe(viewLifecycleOwner, Observer {  item2 ->
+                popularAdapter.setData(WhatContent(item.results, item2.results).results)
+            })
+        })
 
         return view
     }

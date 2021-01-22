@@ -15,4 +15,7 @@ class TVRepository(private val movieAPI: MovieAPI) : SafeApiRequest() {
         movieAPI.getTVVideos(tvID)
     }
 
+    suspend fun getPopularTV() = apiRequest {
+        movieAPI.getPopularTV()
+    }
 }
