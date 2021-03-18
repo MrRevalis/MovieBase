@@ -1,10 +1,7 @@
 package com.example.moviebase.ViewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.moviebase.DataModels.CrewShowFolder.CrewShow
 import com.example.moviebase.Model.Database.Show
 import com.example.moviebase.Model.Database.ShowRepository
@@ -14,7 +11,16 @@ import kotlinx.coroutines.launch
 
 class ShowViewModel(application: Application) : AndroidViewModel(application) {
     val getEverything: LiveData<List<Show>>
-    private val repository: ShowRepository
+    private lateinit var repository: ShowRepository
+    //EGZAMIN zad2
+    val showArg = MutableLiveData<String>()
+    val fullList: LiveData<List<Show>> = Transformations.switchMap(showArg) {
+        when(it){
+            "favourite" -> repository.getFavourite
+            "toWatch" -> repository.getToWatch
+            else -> repository.getEverything
+        }
+    }
 
     init {
         val showDao = MainDatabase.getDatabase(

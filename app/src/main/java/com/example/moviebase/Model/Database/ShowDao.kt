@@ -66,5 +66,11 @@ interface ShowDao {
                 "LIMIT 1"
     )
     fun getShow(movieID: Int) : LiveData<Show>
+    //EGZAMIN zad2
+    @Query("SELECT * FROM show_table WHERE favourite = 1")
+    fun getFavoutire(): LiveData<List<Show>>
+
+    @Query("SELECT * FROM show_table WHERE toWatch = 1")
+    fun getToWatch(): LiveData<List<Show>>
 
 }

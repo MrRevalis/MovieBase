@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/showFav"
+        android:icon="@drawable/ic_star"
+        android:title="@string/favouriteList" />
+    <item
+        android:id="@+id/showToWatch"
+        android:icon="@drawable/ic_eye"
+        android:title="@string/toWatchList" />
+    <item
+        android:id="@+id/showAll"
+        android:icon="@drawable/ic_list"
+        android:title="@string/fullList" />
+</menu>

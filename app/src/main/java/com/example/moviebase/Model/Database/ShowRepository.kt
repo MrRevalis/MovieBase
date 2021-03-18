@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 
 class ShowRepository (private val showDao: ShowDao){
     val getEverything : LiveData<List<Show>> = showDao.getEverything()
+    //EGZAMIN zad2
+    val getFavourite: LiveData<List<Show>> = showDao.getFavoutire()
+    val getToWatch: LiveData<List<Show>> = showDao.getToWatch()
 
     suspend fun addItem(show: Show){
         showDao.insertFavourite(show)

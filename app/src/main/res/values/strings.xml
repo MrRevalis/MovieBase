@@ -25,6 +25,9 @@
     <string name="biography">Biografia</string>
     <string name="knownFrom">Znana/y z:</string>
     <string name="isLiving">Wciąż żyje!</string>
+    <string name="favouriteList">Ulubione</string>
+    <string name="toWatchList">Do obejrzenia</string>
+    <string name="fullList">Wszystko</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
